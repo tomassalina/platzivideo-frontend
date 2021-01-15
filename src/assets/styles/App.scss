@@ -1,0 +1,20 @@
+/* 
+  1. Posicionamiento
+  2. Modelo de caja
+  3. Tipografía
+  4. Visuales
+  5. Otros
+*/
+
+@import "./Vars.scss";
+@import "./Media.scss";
+
+body {
+  margin: 0;
+  font-family: $theme-font;
+  background: $main-color;
+}
+
+* {
+  box-sizing: border-box;
+}

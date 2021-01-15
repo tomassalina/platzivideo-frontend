@@ -1,0 +1,52 @@
+.header {
+  top: 0px;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background: #8f57fd;
+
+  &__img {
+    width: 200px;
+    margin-left: 30px;
+  }
+
+  &__menu {
+    margin-right: 30px;
+    ul {
+      position: absolute;
+      width: 100px;
+      margin: 0px 0px 0px -14px;
+      padding: 0px;
+      display: none;
+      text-align: right;
+      list-style: none;
+    }
+    li {
+      margin: 10px 0px;
+      a {
+        color: white;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+    &:hover ul,
+    ul:hover {
+      display: block;
+    }
+  }
+
+  &__menu--profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img {
+      width: 40px;
+      margin-right: 8px;
+    }
+  }
+}
