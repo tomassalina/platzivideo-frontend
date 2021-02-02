@@ -1,0 +1,44 @@
+.register {
+  min-height: calc(100vh - 200px);
+  padding: 0px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(#21c08b, #8f57fd);
+  &__container {
+    width: 440px;
+    min-height: 700px;
+    padding: 60px 68px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    border-radius: 40px;
+    &--form {
+      display: flex;
+      flex-direction: column;
+    }
+    &--login {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: center;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .input {
+      background-color: transparent;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+      border-bottom: 2px solid white;
+      outline: none;
+    }
+  }
+}

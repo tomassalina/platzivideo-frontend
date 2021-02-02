@@ -18,3 +18,31 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.input {
+  height: 50px;
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  font-family: "Muli", sans-serif;
+  font-size: 16px;
+  color: white;
+  outline: none;
+}
+::placeholder {
+  color: white;
+}
+
+.button {
+  height: 50px;
+  margin: 10px 0;
+  font-family: "Muli", sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  cursor: pointer;
+}

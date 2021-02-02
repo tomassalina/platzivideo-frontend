@@ -10,21 +10,10 @@
     color: white;
     font-size: 25px;
   }
-}
-
-.input {
-  width: 70%;
-  height: 50px;
-  margin-bottom: 20px;
-  padding: 0px 20px;
-  font-family: "Muli", sans-serif;
-  font-size: 16px;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid white;
-  border-radius: 25px;
-  outline: none;
-}
-::placeholder {
-  color: white;
+  .input {
+    width: 70%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    border-radius: 25px;
+  }
 }
