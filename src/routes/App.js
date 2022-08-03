@@ -1,23 +1,23 @@
-import React from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from "../containers/Home";
-import Login from "../containers/Login";
-import Register from "../containers/Register";
-import NotFound from "../containers/NotFound";
-import Layout from "../components/Layout";
-import Player from "../containers/Player";
+import Layout from '../components/Layout';
+import Home from '../containers/Home';
+import Login from '../containers/Login';
+import Register from '../containers/Register';
+import Player from '../containers/Player';
+import NotFound from '../containers/NotFound';
 
 const App = () => (
   <BrowserRouter>
     <Layout>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/player/:id" component={Player} />
-        <Route component={NotFound} />
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/player/:id" element={<Player />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Layout>
   </BrowserRouter>
 );

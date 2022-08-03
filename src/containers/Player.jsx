@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { getVideoSource } from "../actions";
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getVideoSource } from '../actions';
 
-import "../assets/styles/components/Player.scss";
-import NotFound from "./NotFound";
+import '../assets/styles/components/Player.scss';
+import NotFound from './NotFound';
 
-const Player = (props) => {
-  const { id } = props.match.params;
+const Player = props => {
+  const { id } = useParams();
   const hasPLaying = Object.keys(props.playing).length > 0;
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Player = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   playing: state.playing,
 });
 
