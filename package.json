@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "server": "npx json-server initialState.json",
+    "server": "json-server initialState.json",
     "start": "webpack serve --mode development --env development"
   },
   "keywords": [],
@@ -22,26 +22,24 @@
     "redux": "4.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.12.10",
-    "@babel/preset-env": "7.12.11",
-    "@babel/preset-react": "7.12.10",
+    "@babel/core": "7.18.10",
+    "@babel/preset-env": "7.18.10",
+    "@babel/preset-react": "7.18.6",
     "babel-eslint": "^10.1.0",
-    "babel-loader": "8.2.2",
-    "css-loader": "^5.0.1",
+    "babel-loader": "8.2.5",
+    "css-loader": "6.7.1",
     "eslint": "^7.17.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.22.0",
-    "file-loader": "^6.2.0",
-    "html-loader": "1.3.2",
-    "html-webpack-plugin": "4.5.1",
-    "json-server": "0.16.3",
-    "mini-css-extract-plugin": "^1.3.3",
-    "sass": "^1.32.4",
-    "sass-loader": "^10.1.1",
-    "webpack": "5.12.1",
-    "webpack-cli": "4.3.1",
-    "webpack-dev-server": "3.11.1"
+    "html-webpack-plugin": "5.5.0",
+    "json-server": "0.17.0",
+    "mini-css-extract-plugin": "2.6.1",
+    "sass": "1.54.1",
+    "sass-loader": "13.0.2",
+    "webpack": "5.74.0",
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.9.3"
   }
 }
