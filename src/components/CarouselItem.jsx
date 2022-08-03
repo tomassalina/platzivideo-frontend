@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { setFavorite, deleteFavorite } from "../actions";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { setFavorite, deleteFavorite } from '../actions';
 
-import "../assets/styles/components/CarouselItem.scss";
-import playIcon from "../assets/static/play-icon.png";
-import plusIcon from "../assets/static/plus-icon.png";
-import removeIcon from "../assets/static/remove-icon.png";
-import { Link } from "react-router-dom";
+import '../assets/styles/components/CarouselItem.scss';
+import playIcon from '../assets/static/play-icon.png';
+import plusIcon from '../assets/static/plus-icon.png';
+import removeIcon from '../assets/static/remove-icon.png';
+import { Link } from 'react-router-dom';
 
-const CarouselItem = (props) => {
+const CarouselItem = props => {
   const { id, title, cover, year, contentRating, duration, isList } = props;
 
   const handleSetFavorite = () => {
@@ -23,7 +23,7 @@ const CarouselItem = (props) => {
     });
   };
 
-  const handleDeleteFavorite = (itemId) => {
+  const handleDeleteFavorite = itemId => {
     props.deleteFavorite(itemId);
   };
 
