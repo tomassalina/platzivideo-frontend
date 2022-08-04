@@ -1,5 +1,5 @@
 .error {
-  background: linear-gradient(#21c08b, #ab88ff);
+  background: var(--main-gradient);
   display: flex;
   text-align: center;
   justify-content: center;
@@ -8,7 +8,7 @@
 }
 .error h1 {
   font-size: 80px;
-  color: white;
+  color: var(--white-color);
   font-weight: bold;
   margin: 0;
   animation-name: pulse;
@@ -28,5 +28,5 @@
   }
 }
 .error p {
-  color: white;
+  color: var(--white-color);
 }

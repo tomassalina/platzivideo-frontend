@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getVideoSource } from '../actions'
 
@@ -8,6 +8,7 @@ import NotFound from './NotFound'
 
 const Player = props => {
   const { id } = useParams()
+  const navigate = useNavigate()
   const hasPLaying = Object.keys(props.playing).length > 0
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Player = props => {
           <source src={props.playing.source} type='video/mp4' />
         </video>
         <div className='Player-back'>
-          <button type='button' onClick={() => props.history.goBack()}>
+          <button type='button' onClick={() => navigate(-1)}>
             Regresar
           </button>
         </div>

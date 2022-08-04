@@ -4,13 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
-  background: #8f57fd;
-
-  &.isLogin,
-  &.isRegister {
-    background-color: #21c08b;
-  }
+  color: var(--white-color);
+  background: var(--main-color);
 
   &__img {
     width: 200px;

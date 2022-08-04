@@ -11,8 +11,8 @@
 
 body {
   margin: 0;
-  font-family: $theme-font;
-  background: $main-color;
+  font-family: var(--theme-font);
+  background: var(--main-color);
 }
 
 * {
@@ -23,22 +23,22 @@ body {
   height: 50px;
   margin-bottom: 20px;
   padding: 0px 20px;
-  font-family: "Muli", sans-serif;
+  font-family: var(--theme-font);
   font-size: 16px;
-  color: white;
+  color: var(--white-color);
   outline: none;
 }
 ::placeholder {
-  color: white;
+  color: var(--white-color);
 }
 
 .button {
   height: 50px;
   margin: 10px 0;
-  font-family: "Muli", sans-serif;
+  font-family: var(--theme-font);
   font-size: 16px;
   font-weight: bold;
-  color: white;
+  color: var(--white-color);
   letter-spacing: 1px;
   background-color: rgba(255, 255, 255, 0.1);
   border: none;

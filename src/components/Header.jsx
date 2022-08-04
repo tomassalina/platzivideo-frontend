@@ -3,32 +3,26 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
 import { logoutRequest } from '../actions'
-import classNames from 'classnames'
 
 import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
 import userIcon from '../assets/static/user-icon.png'
 
 const Header = (props) => {
-  const { user, isHome, isLogin, isRegister } = props
+  const { user, isHome } = props
   const hasUser = Object.keys(user).length > 0
 
   const handleClick = (event) => {
     props.logoutRequest({})
   }
 
-  const headerClass = classNames('header', {
-    isLogin,
-    isRegister
-  })
-
   return (
-    <header className={headerClass}>
+    <header className='header'>
       <Link to='/'>
         <img className='header__img' src={logo} alt='Platzi Video' />
       </Link>
-      {isHome
-        ? (
+      {isHome &&
+        (
           <div className='header__menu'>
             <div className='header__menu--profile'>
               {hasUser
@@ -59,8 +53,7 @@ const Header = (props) => {
                   )}
             </ul>
           </div>
-          )
-        : null}
+        )}
     </header>
   )
 }

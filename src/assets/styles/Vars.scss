@@ -1,4 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
 
-$theme-font: "Muli", sans-serif;
-$main-color: #8f57fd;
+:root {
+  --theme-font: "Muli", sans-serif;
+  --main-color: #1B1A17;
+  --secondary-color: #E6B325;
+  --white-color: #ffffff;
+  --main-gradient: linear-gradient(var(--main-color), var(--secondary-color));
+}
