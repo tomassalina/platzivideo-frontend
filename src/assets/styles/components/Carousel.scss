@@ -1,17 +1,29 @@
 .carousel {
-  position: relative;
   width: 100%;
+  margin-bottom: 50px;
   padding-left: 30px;
   overflow: scroll;
   overflow-y: hidden;
+
   &__container {
     margin: 70px 0px;
     padding-bottom: 10px;
     font-size: 0;
     white-space: nowrap;
-    transition: 450ms -webkit-transform;
     transition: 450ms transform;
-    transition: 450ms transform, 450ms -webkit-transform;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    margin: 0 10px;
+  }
+  &::-webkit-scrollbar-button {
+    width: 30px;
+    background-color: transparent;
   }
 }
 
