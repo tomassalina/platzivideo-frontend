@@ -28,7 +28,7 @@ const CarouselItem = props => {
   }
 
   return (
-    <div className='carousel-item'>
+    <button type='button' className='carousel-item'>
       <img className='carousel-item__img' src={cover} alt={title} />
       <div className='carousel-item__details'>
         <div>
@@ -42,20 +42,22 @@ const CarouselItem = props => {
 
           {isList
             ? (
-              <img
-                className='carousel-item__details--img'
-                src={removeIcon}
-                alt='Remove Icon'
-                onClick={() => handleDeleteFavorite(id)}
-              />
+              <button type='button' className='carousel-item__details--button' onClick={() => handleDeleteFavorite(id)}>
+                <img
+                  className='carousel-item__details--img'
+                  src={removeIcon}
+                  alt='Remove Icon'
+                />
+              </button>
               )
             : (
-              <img
-                className='carousel-item__details--img'
-                src={plusIcon}
-                alt='Plus Icon'
-                onClick={handleSetFavorite}
-              />
+              <button type='button' className='carousel-item__details--button' onClick={handleSetFavorite}>
+                <img
+                  className='carousel-item__details--img'
+                  src={plusIcon}
+                  alt='Plus Icon'
+                />
+              </button>
               )}
         </div>
         <p className='carousel-item__details--title'>{title}</p>
@@ -63,7 +65,7 @@ const CarouselItem = props => {
           {`${year} ${contentRating} ${duration} minutos`}
         </p>
       </div>
-    </div>
+    </button>
   )
 }
 

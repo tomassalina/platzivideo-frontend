@@ -2,20 +2,20 @@
   position: relative;
   width: 200px;
   height: 250px;
+  padding: 0;
   margin-right: 10px;
   display: inline-block;
   font-size: 20px;
   border-radius: 20px;
   overflow: hidden;
+  border: none;
   cursor: pointer;
   transition: 450ms all;
-  -webkit-transform-origin: center left;
   transform-origin: center left;
 
   &__img {
     width: 200px;
     height: 250px;
-    -o-object-fit: cover;
     object-fit: cover;
   }
 
@@ -34,10 +34,16 @@
     opacity: 0;
     transition: 450ms opacity;
     background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.9) 0%,
-      rgba(0, 0, 0, 0) 100%
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.4) 100%
     );
+    &--button {
+      margin-left: 2px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
     &--img {
       width: 20px;
     }
@@ -53,10 +59,11 @@
   }
 }
 
-.carousel-item:hover ~ .carousel-item {
-  -webkit-transform: translate3d(100px, 0, 0);
-  transform: translate3d(100px, 0, 0);
+.carousel-item:hover ~ .carousel-item,
+.carousel-item:focus ~ .carousel-item {
+  transform: translateX(100px);
 }
-.carousel-item:hover .carousel-item__details {
+.carousel-item:hover .carousel-item__details,
+.carousel-item:focus .carousel-item__details {
   opacity: 1;
 }
