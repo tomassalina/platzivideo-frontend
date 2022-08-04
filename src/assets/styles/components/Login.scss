@@ -29,6 +29,9 @@
       display: flex;
       justify-content: space-between;
       color: var(--white-color);
+      input {
+        margin-right: 8px;
+      }
       a {
         color: var(--white-color);
         font-size: 14px;
@@ -38,14 +41,15 @@
         text-decoration: underline;
       }
     }
-    &--social-media > div {
+    &--social-media a {
       /*Todos los divs dentro de .login__container--social-media*/
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       font-size: 14px;
+      color: var(--white-color);
     }
-    .login__container--social-media > div > img {
+    .login__container--social-media a img {
       width: 30px;
       margin-right: 10px;
     }

@@ -23,7 +23,7 @@ const Header = (props) => {
       </Link>
       {isHome &&
         (
-          <div className='header__menu'>
+          <button type='button' className='header__menu'>
             <div className='header__menu--profile'>
               {hasUser
                 ? (
@@ -52,7 +52,7 @@ const Header = (props) => {
                   </li>
                   )}
             </ul>
-          </div>
+          </button>
         )}
     </header>
   )

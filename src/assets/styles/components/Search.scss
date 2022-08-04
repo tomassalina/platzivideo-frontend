@@ -9,11 +9,15 @@
   &__title {
     color: var(--white-color);
     font-size: 25px;
+    margin-bottom: 24px;
   }
   .input {
     width: 70%;
     background-color: rgba(255, 255, 255, 0.1);
     border: 2px solid var(--white-color);
     border-radius: 25px;
+  }
+  .input:focus {
+    outline: 2px solid var(--secondary-color);
   }
 }

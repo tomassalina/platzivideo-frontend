@@ -14,6 +14,10 @@
 
   &__menu {
     margin-right: 30px;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    color: var(--white-color);
     ul {
       position: absolute;
       width: 100px;
@@ -36,7 +40,7 @@
         margin: 0;
         padding: 0;
         color: white;
-        font-family: "Muli", sans-serif;
+        font-family: 'Muli', sans-serif;
         font-size: 16px;
         background: transparent;
         border: none;
@@ -46,10 +50,6 @@
       button:hover {
         text-decoration: underline;
       }
-    }
-    &:hover ul,
-    ul:hover {
-      display: block;
     }
   }
 
@@ -64,4 +64,10 @@
       object-fit: cover;
     }
   }
+}
+
+.header__menu:hover ul,
+.header__menu:focus ul,
+.header__menu ul:hover {
+  display: block;
 }
