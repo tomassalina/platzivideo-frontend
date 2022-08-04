@@ -28,7 +28,7 @@ const CarouselItem = props => {
   }
 
   return (
-    <button type='button' className='carousel-item'>
+    <div tabIndex='0' className='carousel-item'>
       <img className='carousel-item__img' src={cover} alt={title} />
       <div className='carousel-item__details'>
         <div>
@@ -65,7 +65,7 @@ const CarouselItem = props => {
           {`${year} ${contentRating} ${duration} minutos`}
         </p>
       </div>
-    </button>
+    </div>
   )
 }
 
