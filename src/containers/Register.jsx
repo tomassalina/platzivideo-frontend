@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { registerRequest } from '../actions'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { registerRequest } from '../app/moviesReducer'
 
 import '../assets/styles/components/Register.scss'
 
 const Register = (props) => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
   const [form, setForm] = useState({
     email: '',
     name: '',
@@ -22,8 +25,8 @@ const Register = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     console.log(form)
-    props.registerRequest(form)
-    props.history.push('/')
+    dispatch(registerRequest(form))
+    navigate('/')
   }
 
   return (
@@ -62,8 +65,4 @@ const Register = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  registerRequest
-}
-
-export default connect(null, mapDispatchToProps)(Register)
+export default Register

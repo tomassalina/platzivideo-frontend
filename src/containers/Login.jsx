@@ -1,13 +1,16 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { loginRequest, logoutRequest } from '../actions'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { loginRequest } from '../app/moviesReducer'
 
 import '../assets/styles/components/Login.scss'
 import googleIcon from '../assets/static/google-icon.png'
 import twitterIcon from '../assets/static/twitter-icon.png'
 
 const Login = (props) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
   const [form, setForm] = useState({ email: '' })
 
   const handleChange = (event) => {
@@ -19,8 +22,8 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    props.loginRequest(form)
-    props.history.push('/')
+    dispatch(loginRequest(form))
+    navigate('/')
   }
 
   return (
@@ -67,9 +70,4 @@ const Login = (props) => {
   )
 }
 
-const mapDispatchToProps = {
-  loginRequest,
-  logoutRequest
-}
-
-export default connect(null, mapDispatchToProps)(Login)
+export default Login

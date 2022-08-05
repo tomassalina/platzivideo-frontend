@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import '../assets/styles/App.scss'
 import Search from '../components/Search'
@@ -7,7 +7,15 @@ import Categories from '../components/Categories'
 import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
 
-const Home = ({ myList, trends, originals }) => {
+const Home = () => {
+  const { myList, trends, originals } = useSelector(store => {
+    return {
+      myList: store.myList,
+      trends: store.trends,
+      originals: store.originals
+    }
+  })
+
   return (
     <>
       <Search />
@@ -38,14 +46,4 @@ const Home = ({ myList, trends, originals }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    myList: state.myList,
-    trends: state.trends,
-    originals: state.originals
-  }
-}
-
-// export default Home;
-// export default connect(loQueNecesitamos, lasActions)(Home);
-export default connect(mapStateToProps, null)(Home)
+export default Home

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import '../assets/styles/components/Search.scss'
 import useSearchMovies from '../hooks/useSearchMovies'
@@ -7,7 +7,10 @@ import Categories from './Categories'
 import Carousel from './Carousel'
 import CarouselItem from './CarouselItem'
 
-const Search = ({ trends, originals }) => {
+const Search = () => {
+  const { trends, originals } = useSelector(store => {
+    return { trends: store.trends, originals: store.originals }
+  })
   const [movies, setMovies] = useState([])
   const { query, setQuery, filteredMovies } = useSearchMovies(movies)
 
@@ -36,11 +39,4 @@ const Search = ({ trends, originals }) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    trends: state.trends,
-    originals: state.originals
-  }
-}
-
-export default connect(mapStateToProps, null)(Search)
+export default Search

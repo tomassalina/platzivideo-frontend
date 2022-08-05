@@ -1,19 +1,22 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
-import { logoutRequest } from '../actions'
+import { logoutRequest } from '../app/moviesReducer'
 
 import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
 import userIcon from '../assets/static/user-icon.png'
 
 const Header = (props) => {
-  const { user, isHome } = props
+  const { isHome } = props
+  const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+
   const hasUser = Object.keys(user).length > 0
 
   const handleClick = (event) => {
-    props.logoutRequest({})
+    dispatch(logoutRequest({}))
   }
 
   return (
@@ -58,14 +61,4 @@ const Header = (props) => {
   )
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user
-  }
-}
-
-const mapDispatchToProps = {
-  logoutRequest
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default Header

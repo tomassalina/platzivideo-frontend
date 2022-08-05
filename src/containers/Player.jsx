@@ -1,33 +1,33 @@
 import React, { useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { getVideoSource } from '../actions'
+import { Link, useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { getVideoSource } from '../app/moviesReducer'
 
 import '../assets/styles/components/Player.scss'
 import NotFound from './NotFound'
 import VideoDemo from '../assets/static/demo.min.mp4'
 
-const Player = props => {
+const Player = () => {
+  const dispatch = useDispatch()
+  const playing = useSelector(state => state.playing)
   const { id } = useParams()
-  const navigate = useNavigate()
-  const hasPLaying = Object.keys(props.playing).length > 0
+
+  const hasPlaying = Object.keys(playing).length > 0
 
   useEffect(() => {
-    props.getVideoSource(id)
+    dispatch(getVideoSource(id))
   }, [])
 
-  console.log(props.playing)
-
-  return hasPLaying
+  return hasPlaying
     ? (
       <div className='Player'>
         <video controls autoPlay>
           <source src={VideoDemo} type='video/mp4' />
         </video>
         <div className='Player-back'>
-          <button type='button' onClick={() => navigate(-1)}>
+          <Link className='Player-link' to='/'>
             Regresar
-          </button>
+          </Link>
         </div>
       </div>
       )
@@ -36,12 +36,4 @@ const Player = props => {
       )
 }
 
-const mapStateToProps = state => ({
-  playing: state.playing
-})
-
-const mapDispatchToProps = {
-  getVideoSource
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Player)
+export default Player
