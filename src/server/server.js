@@ -1,13 +1,20 @@
 import express from 'express'
+import dotenv from 'dotenv'
 
+dotenv.config()
+
+const { ENV, PORT } = process.env
 const app = express()
-const port = 3001
+
+if (ENV === 'development') {
+  console.log('Development config')
+}
 
 app.get('*', (req, res) => {
   res.json({ hello: 'express' })
 })
 
-app.listen(port, (err) => {
+app.listen(PORT, (err) => {
   if (err) console.log(err)
-  else console.log(`Server running on port ${port}`)
+  else console.log(`Server running on port ${PORT}`)
 })
