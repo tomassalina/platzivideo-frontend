@@ -1,16 +1,20 @@
 .error {
-  background: var(--main-gradient);
+  min-height: calc(100vh - 200px);
   display: flex;
-  text-align: center;
-  justify-content: center;
   flex-direction: column;
-  min-height: calc(100vh - 160px);
+  justify-content: center;
+  align-items: center;
+  background: var(--main-gradient);
+  text-align: center;
 }
 .error h1 {
+  width: fit-content;
+  margin: 0;
+
   font-size: 80px;
   color: var(--white-color);
   font-weight: bold;
-  margin: 0;
+
   animation-name: pulse;
   animation-duration: 1s;
   animation-fill-mode: both;
