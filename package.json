@@ -7,6 +7,7 @@
     "build": "webpack --mode production",
     "server": "json-server initialState.json",
     "start": "webpack serve --mode development --env development",
+    "start:dev": "node src/server/index",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
@@ -14,8 +15,11 @@
   "author": "Tomás Salina",
   "license": "MIT",
   "dependencies": {
+    "@babel/register": "7.18.9",
     "@reduxjs/toolkit": "^1.8.3",
     "classnames": "2.3.1",
+    "dotenv": "16.0.1",
+    "express": "4.18.1",
     "md5": "2.3.0",
     "prop-types": "15.8.1",
     "react": "18.2.0",
