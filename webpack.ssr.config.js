@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
 
 module.exports = {
@@ -8,7 +7,7 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'assets/app.js',
     assetModuleFilename: 'assets/images/[hash][ext][query]',
     publicPath: '/'
   },
@@ -47,12 +46,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: 'public/index.html',
-      filename: 'index.html'
-    }),
     new MiniCssExtractPLugin({
-      filename: 'assets/css/[name].[fullhash].css'
+      filename: 'assets/app.css'
     })
   ]
 }
