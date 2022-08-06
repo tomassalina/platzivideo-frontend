@@ -3,7 +3,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['react-hot-loader/patch', './src/frontend/index.js'],
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -49,7 +49,7 @@ module.exports = {
       filename: 'index.html'
     }),
     new MiniCssExtractPLugin({
-      filename: 'assets/css/[name].[hash].css'
+      filename: 'assets/css/[name].[fullhash].css'
     })
   ]
 }
