@@ -2,6 +2,13 @@ import express from 'express'
 import dotenv from 'dotenv'
 import webpack from 'webpack'
 
+import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import { StaticRouter } from 'react-router-dom/server'
+import { Provider } from 'react-redux'
+import { store } from '../frontend/app/store'
+import ServerApp from '../frontend/routes/ServerApp'
+
 dotenv.config()
 
 const { ENV, PORT } = process.env
@@ -19,8 +26,8 @@ if (ENV === 'development') {
   app.use(webpackHotMiddleware(compiler))
 }
 
-app.get('*', (req, res) => {
-  res.send(`
+const setResponse = (html) => {
+  return (`
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -31,11 +38,25 @@ app.get('*', (req, res) => {
         <link rel="stylesheet" href="assets/app.css" type="text/css">
       </head>
       <body>
-        <div id="app"></div>
+        <div id="app">${html}</div>
       </body>
     </html>
   `)
-})
+}
+
+const renderApp = (req, res) => {
+  const html = ReactDOMServer.renderToString(
+    <Provider store={store}>
+      <StaticRouter location={req.url}>
+        <ServerApp />
+      </StaticRouter>
+    </Provider>
+  )
+
+  res.send(setResponse(html))
+}
+
+app.get('*', renderApp)
 
 app.listen(PORT, (err) => {
   if (err) console.log(err)
