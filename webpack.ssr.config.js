@@ -8,7 +8,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'assets/app.js',
-    assetModuleFilename: 'assets/images/[hash][ext][query]',
+    assetModuleFilename: 'assets/images/[name][ext]',
     publicPath: '/'
   },
   devServer: {

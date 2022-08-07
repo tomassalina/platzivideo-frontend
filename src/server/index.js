@@ -12,4 +12,9 @@ require('@babel/register')({
   ]
 })
 
+require('asset-require-hook')({
+  extensions: ['png', 'jpg', 'gif', 'mp4'],
+  name: 'assets/images/[name].[ext]'
+})
+
 require('./server')
