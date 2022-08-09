@@ -24,7 +24,6 @@ const Register = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(form)
     dispatch(registerRequest(form))
     navigate('/')
   }

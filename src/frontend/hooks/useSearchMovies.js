@@ -13,8 +13,6 @@ const useSearchMovies = (movies) => {
       )
     })
 
-    console.log(result)
-
     setFilteredMovies(result)
   }, [movies, query])
 
