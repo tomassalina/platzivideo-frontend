@@ -7,7 +7,7 @@ module.exports = {
   entry: ['./src/frontend/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'src/server/public'),
     filename: 'assets/app.js',
     assetModuleFilename: 'assets/images/[name][ext]',
     publicPath: '/'

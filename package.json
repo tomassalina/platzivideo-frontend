@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "server": "json-server initialState.json",
-    "start": "webpack serve --mode development --env development",
-    "start:ssr": "nodemon src/server/index",
+    "build": "webpack",
+    "start": "node src/server",
+    "dev": "nodemon src/server/index",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
@@ -21,6 +20,7 @@
     "classnames": "2.3.1",
     "dotenv": "16.0.1",
     "express": "4.18.1",
+    "helmet": "3.21.2",
     "ignore-styles": "5.0.1",
     "md5": "2.3.0",
     "prop-types": "15.8.1",

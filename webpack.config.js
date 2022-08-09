@@ -1,23 +1,16 @@
 const path = require('path')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
 
+/** @type {import('webpack').Configuration} */
 module.exports = {
-  entry: ['react-hot-loader/patch', './src/frontend/index.js'],
+  entry: ['./src/frontend/index.js'],
+  mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
-    assetModuleFilename: 'assets/images/[hash][ext][query]',
+    path: path.resolve(__dirname, 'src/server/public'),
+    filename: 'assets/app.js',
+    assetModuleFilename: 'assets/images/[name][ext]',
     publicPath: '/'
-  },
-  devServer: {
-    static: {
-      directory: path.join(__dirname, 'dist')
-    },
-    compress: true,
-    historyApiFallback: true,
-    port: 8080,
-    open: true
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -44,12 +37,9 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: 'public/index.html',
-      filename: 'index.html'
-    }),
+    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPLugin({
-      filename: 'assets/css/[name].[fullhash].css'
+      filename: 'assets/app.css'
     })
   ]
 }
