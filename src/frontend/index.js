@@ -1,13 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
-import { store } from './app/store'
+import { configureStore } from '@reduxjs/toolkit'
+import moviesReducer from './app/moviesReducer'
 
 import App from './routes/App'
 
-const root = ReactDOM.createRoot(document.getElementById('app'))
+const store = configureStore({
+  reducer: moviesReducer,
+  preloadedState: window.__PRELOADED_STATE__
+})
 
-root.render(
+delete window.__PRELOADED_STATE__
+
+ReactDOM.hydrateRoot(
+  document.getElementById('app'),
   <Provider store={store}>
     <App />
   </Provider>

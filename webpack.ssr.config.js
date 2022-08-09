@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
 
+/** @type {import('webpack').Configuration} */
 module.exports = {
   entry: ['./src/frontend/index.js', 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true'],
   mode: 'development',

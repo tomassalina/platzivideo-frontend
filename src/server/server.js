@@ -6,7 +6,9 @@ import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
-import { store } from '../frontend/app/store'
+import { configureStore } from '@reduxjs/toolkit'
+import moviesReducer from '../frontend/app/moviesReducer'
+import initialState from '../frontend/initialState'
 import ServerApp from '../frontend/routes/ServerApp'
 
 dotenv.config()
@@ -26,7 +28,7 @@ if (ENV === 'development') {
   app.use(webpackHotMiddleware(compiler))
 }
 
-const setResponse = (html) => {
+const setResponse = (html, preloadedState) => {
   return (`
     <!DOCTYPE html>
     <html lang="en">
@@ -34,17 +36,25 @@ const setResponse = (html) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Platzi Video</title>
-        <script defer="defer" src="assets/app.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="assets/app.css" type="text/css">
-      </head>
-      <body>
+        <link rel="stylesheet" href="/assets/app.css" type="text/css">
+        </head>
+        <body>
         <div id="app">${html}</div>
+        <script id="preloadedState">
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        </script>
+        <script src="/assets/app.js" type="text/javascript"></script>
       </body>
     </html>
   `)
 }
 
 const renderApp = (req, res) => {
+  const store = configureStore({
+    reducer: moviesReducer,
+    preloadedState: initialState
+  })
+
   const html = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url}>
@@ -53,7 +63,9 @@ const renderApp = (req, res) => {
     </Provider>
   )
 
-  res.send(setResponse(html))
+  const preloadedState = store.getState()
+
+  res.send(setResponse(html, preloadedState))
 }
 
 app.get('*', renderApp)

@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
-import initialState from '../initialState'
 
 const moviesSlice = createSlice({
   name: 'movies',
-  initialState,
+  initialState: {},
   reducers: {
     setFavorite: (state, action) => {
       const exists = state.myList.find(item => item.id === action.payload.id)
