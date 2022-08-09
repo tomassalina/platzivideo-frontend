@@ -1,6 +1,10 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -40,6 +44,15 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPLugin({
       filename: 'assets/app.css'
-    })
-  ]
+    }),
+    new CompressionPlugin({
+      test: /\.js$|\.css$/,
+      filename: '[path][base].gz'
+    }),
+    new CleanWebpackPlugin()
+  ],
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+  }
 }
