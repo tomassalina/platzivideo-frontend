@@ -15,10 +15,23 @@ import ServerApp from '../frontend/routes/ServerApp'
 import getManifest from './utils/getManifest'
 import setResponse from './utils/setResponse'
 
+import passport from 'passport'
+import cookieParser from 'cookie-parser'
+
+import auth from './routes/auth'
+
 dotenv.config()
 
 const { ENV, PORT } = process.env
 const app = express()
+
+// parsers
+app.use(express.json())
+app.use(cookieParser())
+
+// session
+app.use(passport.initialize())
+// app.use(passport.session())
 
 if (ENV === 'development') {
   console.log('Development config')
@@ -60,6 +73,7 @@ const renderApp = (req, res) => {
   res.send(setResponse(html, preloadedState, req.hashManifest))
 }
 
+auth(app)
 app.get('*', renderApp)
 
 app.listen(PORT, (err) => {
