@@ -5,6 +5,7 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -12,7 +13,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'src/server/public'),
-    filename: 'assets/app.js',
+    filename: 'assets/app-[fullhash].js',
     assetModuleFilename: 'assets/images/[name][ext]',
     publicPath: '/'
   },
@@ -43,12 +44,13 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPLugin({
-      filename: 'assets/app.css'
+      filename: 'assets/app-[fullhash].css'
     }),
     new CompressionPlugin({
       test: /\.js$|\.css$/,
       filename: '[path][base].gz'
     }),
+    new WebpackManifestPlugin(),
     new CleanWebpackPlugin()
   ],
   optimization: {

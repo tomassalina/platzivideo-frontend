@@ -12,6 +12,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import moviesReducer from '../frontend/app/moviesReducer'
 import initialState from '../frontend/initialState'
 import ServerApp from '../frontend/routes/ServerApp'
+import getManifest from './getManifest'
 
 dotenv.config()
 
@@ -29,13 +30,20 @@ if (ENV === 'development') {
   app.use(webpackDevMiddleware(compiler, serverConfig))
   app.use(webpackHotMiddleware(compiler))
 } else {
+  app.use((req, res, next) => {
+    if (!req.hashManifest) req.hashManifest = getManifest()
+    next()
+  })
   app.use(express.static(path.join(__dirname, '/public')))
   app.use(helmet())
   app.use(helmet.permittedCrossDomainPolicies())
   app.disable('x-powered-by')
 }
 
-const setResponse = (html, preloadedState) => {
+const setResponse = (html, preloadedState, manifest) => {
+  const mainStyle = manifest ? manifest['main.css'] : '/assets/app.css'
+  const mainBuild = manifest ? manifest['main.js'] : '/assets/app.js'
+
   return (`
     <!DOCTYPE html>
     <html lang="en">
@@ -43,14 +51,14 @@ const setResponse = (html, preloadedState) => {
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Platzi Video</title>
-        <link rel="stylesheet" href="/assets/app.css" type="text/css">
+        <link rel="stylesheet" href="${mainStyle}" type="text/css">
         </head>
         <body>
         <div id="app">${html}</div>
         <script id="preloadedState">
           window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
         </script>
-        <script src="/assets/app.js" type="text/javascript"></script>
+        <script src="${mainBuild}" type="text/javascript"></script>
       </body>
     </html>
   `)
@@ -72,7 +80,7 @@ const renderApp = (req, res) => {
 
   const preloadedState = store.getState()
 
-  res.send(setResponse(html, preloadedState))
+  res.send(setResponse(html, preloadedState, req.hashManifest))
 }
 
 app.get('*', renderApp)

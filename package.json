@@ -48,7 +48,8 @@
     "webpack-cli": "4.10.0",
     "webpack-dev-middleware": "5.3.3",
     "webpack-dev-server": "4.9.3",
-    "webpack-hot-middleware": "2.25.1"
+    "webpack-hot-middleware": "2.25.1",
+    "webpack-manifest-plugin": "5.0.0"
   },
   "eslintConfig": {
     "extends": "./node_modules/standard/eslintrc.json"
