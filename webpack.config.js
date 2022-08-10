@@ -13,7 +13,7 @@ module.exports = {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'src/server/public'),
-    filename: 'assets/app-[fullhash].js',
+    filename: 'assets/app.[contenthash].js',
     assetModuleFilename: 'assets/images/[name][ext]',
     publicPath: '/'
   },
@@ -44,7 +44,7 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPLugin({
-      filename: 'assets/app-[fullhash].css'
+      filename: 'assets/app.[contenthash].css'
     }),
     new CompressionPlugin({
       test: /\.js$|\.css$/,
@@ -55,6 +55,30 @@ module.exports = {
   ],
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()]
+    minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        default: false,
+        commons: {
+          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+          chunks: 'all',
+          name: 'commons',
+          filename: 'assets/chunks/common.[contenthash].js',
+          reuseExistingChunk: true,
+          enforce: true,
+          priority: 20
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all',
+          name: 'vendors',
+          filename: 'assets/chunks/vendor.[contenthash].js',
+          reuseExistingChunk: true,
+          enforce: true,
+          priority: 10
+        }
+      }
+    }
   }
 }

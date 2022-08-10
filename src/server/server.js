@@ -12,7 +12,8 @@ import { configureStore } from '@reduxjs/toolkit'
 import moviesReducer from '../frontend/app/moviesReducer'
 import initialState from '../frontend/initialState'
 import ServerApp from '../frontend/routes/ServerApp'
-import getManifest from './getManifest'
+import getManifest from './utils/getManifest'
+import setResponse from './utils/setResponse'
 
 dotenv.config()
 
@@ -38,30 +39,6 @@ if (ENV === 'development') {
   app.use(helmet())
   app.use(helmet.permittedCrossDomainPolicies())
   app.disable('x-powered-by')
-}
-
-const setResponse = (html, preloadedState, manifest) => {
-  const mainStyle = manifest ? manifest['main.css'] : '/assets/app.css'
-  const mainBuild = manifest ? manifest['main.js'] : '/assets/app.js'
-
-  return (`
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Platzi Video</title>
-        <link rel="stylesheet" href="${mainStyle}" type="text/css">
-        </head>
-        <body>
-        <div id="app">${html}</div>
-        <script id="preloadedState">
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-        </script>
-        <script src="${mainBuild}" type="text/javascript"></script>
-      </body>
-    </html>
-  `)
 }
 
 const renderApp = (req, res) => {
