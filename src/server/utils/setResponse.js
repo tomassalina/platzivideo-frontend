@@ -1,10 +1,10 @@
 const createScripts = ({ mainBuild, commonBuild, vendorsBuild }) => {
   if (commonBuild && vendorsBuild) {
     return (`
-    <script src="${commonBuild}" type="text/javascript"></script>
-    <script src="${vendorsBuild}" type="text/javascript"></script>
-    <script src="${mainBuild}" type="text/javascript"></script>
-  `)
+      <script src="${commonBuild}" type="text/javascript"></script>
+      <script src="${vendorsBuild}" type="text/javascript"></script>
+      <script src="${mainBuild}" type="text/javascript"></script>
+    `)
   }
 
   return (`<script src="${mainBuild}" type="text/javascript"></script>`)
