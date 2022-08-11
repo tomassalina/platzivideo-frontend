@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { registerRequest } from '../app/moviesReducer'
+import { registerUser } from '../app/moviesReducer'
 
 import '../assets/styles/components/Register.scss'
 
@@ -24,8 +24,8 @@ const Register = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(registerRequest(form))
-    navigate('/')
+    dispatch(registerUser(form))
+    navigate('/login')
   }
 
   return (

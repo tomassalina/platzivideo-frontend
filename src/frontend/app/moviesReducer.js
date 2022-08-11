@@ -1,4 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
+
+export const registerUser = createAsyncThunk(
+  'movies/registerUser',
+  async (user) => {
+    try {
+      const response = await axios.post('/auth/sign-up', user)
+      return response.data
+    } catch (err) {
+      return err.message
+    }
+  }
+)
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -18,17 +31,20 @@ const moviesSlice = createSlice({
     logoutRequest: (state, action) => {
       state.user = action.payload
     },
-    registerRequest: (state, action) => {
-      state.user = action.payload
-    },
     getVideoSource: (state, action) => {
       state.playing =
         state.trends.find(item => item.id === Number(action.payload)) ||
         state.originals.find(item => item.id === Number(action.payload)) ||
         []
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(registerUser.fulfilled, (state, action) => {
+      state.user = action.payload
+    })
   }
 })
 
-export const { setFavorite, deleteFavorite, loginRequest, logoutRequest, registerRequest, getVideoSource } = moviesSlice.actions
+export const { setFavorite, deleteFavorite, loginRequest, logoutRequest, getVideoSource } = moviesSlice.actions
+
 export default moviesSlice.reducer
