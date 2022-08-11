@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { loginRequest } from '../app/moviesReducer'
+import { loginUser } from '../app/moviesReducer'
 
 import '../assets/styles/components/Login.scss'
 import googleIcon from '../assets/static/google-icon.png'
@@ -22,7 +22,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    dispatch(loginRequest(form))
+    dispatch(loginUser(form))
     navigate('/')
   }
 

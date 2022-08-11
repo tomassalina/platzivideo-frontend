@@ -59,7 +59,7 @@ function auth (app) {
       res.status(201).json({
         name: req.body.name,
         email: req.body.email,
-        id: userData.data.id
+        id: userData.data?.data
       })
     } catch (err) {
       console.log(err)

@@ -13,6 +13,30 @@ export const registerUser = createAsyncThunk(
   }
 )
 
+export const loginUser = createAsyncThunk(
+  'movies/loginUser',
+  async ({ email, password }) => {
+    try {
+      const { data } = await axios({
+        url: '/auth/sign-in',
+        method: 'post',
+        auth: {
+          username: email,
+          password
+        }
+      })
+
+      document.cookie = `id=${data.user?.id}`
+      document.cookie = `name=${data.user?.name}`
+      document.cookie = `email=${data.user?.email}`
+
+      return data.user
+    } catch (err) {
+      return err.message
+    }
+  }
+)
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: {},
@@ -25,26 +49,27 @@ const moviesSlice = createSlice({
     deleteFavorite: (state, action) => {
       state.myList = state.myList.filter(movie => movie.id !== action.payload)
     },
-    loginRequest: (state, action) => {
-      state.user = action.payload
-    },
-    logoutRequest: (state, action) => {
-      state.user = action.payload
-    },
     getVideoSource: (state, action) => {
       state.playing =
         state.trends.find(item => item.id === Number(action.payload)) ||
         state.originals.find(item => item.id === Number(action.payload)) ||
         []
+    },
+    logoutRequest: (state, action) => {
+      state.user = action.payload
     }
   },
   extraReducers: (builder) => {
-    builder.addCase(registerUser.fulfilled, (state, action) => {
-      state.user = action.payload
-    })
+    builder
+      .addCase(registerUser.fulfilled, (state, action) => {
+        state.user = action.payload
+      })
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.user = action.payload
+      })
   }
 })
 
-export const { setFavorite, deleteFavorite, loginRequest, logoutRequest, getVideoSource } = moviesSlice.actions
+export const { setFavorite, deleteFavorite, logoutRequest, getVideoSource } = moviesSlice.actions
 
 export default moviesSlice.reducer
