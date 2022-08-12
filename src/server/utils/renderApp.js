@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import moviesReducer from '../../frontend/app/moviesReducer'
-import ServerApp from '../../frontend/routes/ServerApp'
+import App from '../../frontend/routes/App'
 
 import setResponse from './setResponse.js'
 
@@ -39,7 +39,7 @@ const renderApp = (req, res) => {
   const html = ReactDOMServer.renderToString(
     <Provider store={store}>
       <StaticRouter location={req.url}>
-        <ServerApp />
+        <App />
       </StaticRouter>
     </Provider>
   )

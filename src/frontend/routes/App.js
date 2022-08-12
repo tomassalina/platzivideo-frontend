@@ -1,6 +1,6 @@
 import { hot } from 'react-hot-loader/root'
 import React, { useEffect } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import ProtectedLayout from '../components/ProtectedLayout'
 import Layout from '../components/Layout'
@@ -16,19 +16,17 @@ const App = () => {
   }, [])
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<ProtectedLayout />}>
-          <Route path='/' element={<Home />} />
-          <Route path='/player/:id' element={<Player />} />
-        </Route>
-        <Route element={<Layout />}>
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='*' element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route element={<ProtectedLayout />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/player/:id' element={<Player />} />
+      </Route>
+      <Route element={<Layout />}>
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='*' element={<NotFound />} />
+      </Route>
+    </Routes>
   )
 }
 
