@@ -8,8 +8,7 @@ import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
 import userIcon from '../assets/static/user-icon.png'
 
-const Header = (props) => {
-  const { isHome } = props
+const Header = ({ isHome }) => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
 
@@ -26,7 +25,7 @@ const Header = (props) => {
       </Link>
       {isHome &&
         (
-          <button type='button' className='header__menu'>
+          <div tabIndex={0} className='header__menu'>
             <div className='header__menu--profile'>
               {hasUser
                 ? (
@@ -55,7 +54,7 @@ const Header = (props) => {
                   </li>
                   )}
             </ul>
-          </button>
+          </div>
         )}
     </header>
   )

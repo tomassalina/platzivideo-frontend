@@ -4,12 +4,33 @@ import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
 import moviesReducer from '../../frontend/app/moviesReducer'
-import initialState from '../../frontend/initialState'
 import ServerApp from '../../frontend/routes/ServerApp'
 
 import setResponse from './setResponse.js'
 
 const renderApp = (req, res) => {
+  const { id, name, email } = req.cookies
+
+  let initialState
+
+  if (id) {
+    initialState = {
+      user: { id, name, email },
+      playing: {},
+      myList: [],
+      trends: [],
+      originals: []
+    }
+  } else {
+    initialState = {
+      user: {},
+      playing: {},
+      myList: [],
+      trends: [],
+      originals: []
+    }
+  }
+
   const store = configureStore({
     reducer: moviesReducer,
     preloadedState: initialState
