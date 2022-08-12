@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
 import { logoutRequest } from '../app/moviesReducer'
 
@@ -11,11 +11,17 @@ import userIcon from '../assets/static/user-icon.png'
 const Header = ({ isHome }) => {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const hasUser = Object.keys(user).length > 0
 
-  const handleClick = (event) => {
+  const handleLogout = () => {
+    document.cookie = 'id='
+    document.cookie = 'name='
+    document.cookie = 'email='
+    document.cookie = 'token='
     dispatch(logoutRequest({}))
+    navigate('/login')
   }
 
   return (
@@ -44,7 +50,7 @@ const Header = ({ isHome }) => {
                       <Link to='/'>{user.name}</Link>
                     </li>
                     <li>
-                      <button onClick={handleClick}>Cerrar Sesión</button>
+                      <button onClick={handleLogout}>Cerrar Sesión</button>
                     </li>
                   </>
                   )
