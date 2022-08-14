@@ -3,7 +3,7 @@ import passport from 'passport'
 import boom from '@hapi/boom'
 import axios from 'axios'
 
-require('dotenv').config()
+const { ENV, API_URL } = require('../config')
 
 // Basic strategy
 require('../utils/auth/strategies/basic')
@@ -29,8 +29,8 @@ function auth (app) {
           const { token, ...user } = data
 
           res.cookie('token', token, {
-            httpOnly: !(process.env.ENV === 'development'),
-            secure: !(process.env.ENV === 'development'),
+            httpOnly: !(ENV === 'development'),
+            secure: !(ENV === 'development'),
             maxAge: rememberMe ? SEVEN_DAYS_IN_SEC : TWO_HOURS_IN_SEC
           })
 
@@ -47,7 +47,7 @@ function auth (app) {
 
     try {
       const userData = await axios({
-        url: `${process.env.API_URL}/api/auth/sign-up`,
+        url: `${API_URL}/api/auth/sign-up`,
         method: 'post',
         data: {
           name: user.name,

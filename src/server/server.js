@@ -1,5 +1,4 @@
 import express from 'express'
-import dotenv from 'dotenv'
 import webpack from 'webpack'
 import path from 'path'
 import helmet from 'helmet'
@@ -10,11 +9,10 @@ import getManifest from './utils/getManifest'
 import renderApp from './utils/renderApp'
 
 import auth from './routes/auth'
+import userMovies from './routes/userMovies'
 
 // config
-dotenv.config()
-
-const { ENV, PORT } = process.env
+const { ENV, PORT } = require('./config')
 const app = express()
 
 // parsers
@@ -47,6 +45,7 @@ if (ENV === 'development') {
 }
 
 auth(app)
+userMovies(app)
 app.get('*', renderApp)
 
 app.listen(PORT, (err) => {
