@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPLugin = require('mini-css-extract-plugin')
+const Dotenv = require('dotenv-webpack')
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -49,6 +50,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPLugin({
       filename: 'assets/app.css'
-    })
+    }),
+    new Dotenv()
   ]
 }

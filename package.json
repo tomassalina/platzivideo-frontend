@@ -45,6 +45,7 @@
     "compression-webpack-plugin": "10.0.0",
     "css-loader": "6.7.1",
     "css-minimizer-webpack-plugin": "4.0.0",
+    "dotenv-webpack": "8.0.0",
     "mini-css-extract-plugin": "2.6.1",
     "react-hot-loader": "4.13.0",
     "sass": "1.54.3",
