@@ -29,7 +29,7 @@ const Search = () => {
           <Categories title='Search Results'>
             <Carousel>
               {filteredMovies.map((item) => (
-                <CarouselItem key={item.id} {...item} />
+                <CarouselItem key={item.title} {...item} />
               ))}
             </Carousel>
           </Categories>
