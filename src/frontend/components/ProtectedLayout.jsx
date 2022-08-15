@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { getUser } from '../app/userSlice'
 import Header from './Header'
 import Footer from './Footer'
 import Login from '../containers/Login'
 
 const ProtectedLayout = () => {
-  const user = useSelector(state => state.user)
+  const user = useSelector(getUser)
   const hasUser = Object.keys(user).length > 0
 
   if (!hasUser) {

@@ -6,7 +6,8 @@ import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import moviesReducer from '../../frontend/app/moviesReducer'
+import moviesSlice from '../../frontend/app/moviesSlice'
+import userSlice from '../../frontend/app/userSlice'
 import App from '../../frontend/routes/App'
 
 import setResponse from './setResponse.js'
@@ -41,22 +42,23 @@ const renderApp = async (req, res) => {
     movieList = movieList.data
 
     initialState = {
-      user: { email, name, id },
-      playing: {},
-      loading: false,
-      myList: userMovies.map((userMovie) => {
-        const favoriteMovie = movieList.find(
-          (movie) => movie._id === userMovie.movieId
-        )
+      user: { email, name, id, loading: false, error: '' },
+      movies: {
+        playing: {},
+        myList: userMovies.map((userMovie) => {
+          const favoriteMovie = movieList.find(
+            (movie) => movie._id === userMovie.movieId
+          )
 
-        return { ...favoriteMovie, userMovieId: userMovie._id }
-      }),
-      trends: movieList.filter(
-        (movie) => movie.contentRating === 'PG' && movie._id
-      ),
-      originals: movieList.filter(
-        (movie) => movie.contentRating === 'G' && movie._id
-      )
+          return { ...favoriteMovie, userMovieId: userMovie._id }
+        }),
+        trends: movieList.filter(
+          (movie) => movie.contentRating === 'PG' && movie._id
+        ),
+        originals: movieList.filter(
+          (movie) => movie.contentRating === 'G' && movie._id
+        )
+      }
     }
   } catch (err) {
     initialState = {
@@ -70,7 +72,10 @@ const renderApp = async (req, res) => {
   }
 
   const store = configureStore({
-    reducer: moviesReducer,
+    reducer: {
+      movies: moviesSlice,
+      user: userSlice
+    },
     preloadedState: initialState
   })
 

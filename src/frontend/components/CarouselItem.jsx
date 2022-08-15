@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { setFavorite, deleteFavorite } from '../app/moviesReducer'
+import { setFavorite, deleteFavorite, getMyList } from '../app/moviesSlice'
 import axios from 'axios'
 
 import '../assets/styles/components/CarouselItem.scss'
@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom'
 
 const CarouselItem = props => {
   const { _id, userMovieId, title, cover, year, contentRating, duration, isList } = props
-  const myList = useSelector(state => state.myList)
+  const myList = useSelector(getMyList)
   const dispatch = useDispatch()
 
   const handleSetFavorite = async () => {

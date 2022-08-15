@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
-import moviesReducer from './app/moviesReducer'
+import moviesSlice from './app/moviesSlice'
+import userSlice from './app/userSlice'
 
 import App from './routes/App'
 
 const store = configureStore({
-  reducer: moviesReducer,
+  reducer: {
+    movies: moviesSlice,
+    user: userSlice
+  },
   preloadedState: window.__PRELOADED_STATE__
 })
 

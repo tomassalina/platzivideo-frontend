@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { registerUser } from '../app/moviesReducer'
+import { registerUser } from '../app/userSlice'
 
 import '../assets/styles/components/Register.scss'
 

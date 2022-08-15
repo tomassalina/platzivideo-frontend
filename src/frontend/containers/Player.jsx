@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { getVideoSource } from '../app/moviesReducer'
+import { getVideoSource, getPlaying } from '../app/moviesSlice'
 
 import '../assets/styles/components/Player.scss'
 import NotFound from './NotFound'
@@ -9,7 +9,7 @@ import VideoDemo from '../assets/static/demo.min.mp4'
 
 const Player = () => {
   const dispatch = useDispatch()
-  const playing = useSelector(state => state.playing)
+  const playing = useSelector(getPlaying)
   const { id } = useParams()
 
   const hasPlaying = Object.keys(playing).length > 0

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { getMyList, getTrends, getOriginals } from '../app/moviesSlice'
 
 import '../assets/styles/App.scss'
 import Search from '../components/Search'
@@ -8,13 +9,9 @@ import Carousel from '../components/Carousel'
 import CarouselItem from '../components/CarouselItem'
 
 const Home = () => {
-  const { myList, trends, originals } = useSelector(store => {
-    return {
-      myList: store.myList,
-      trends: store.trends,
-      originals: store.originals
-    }
-  })
+  const myList = useSelector(getMyList)
+  const trends = useSelector(getTrends)
+  const originals = useSelector(getOriginals)
 
   return (
     <>

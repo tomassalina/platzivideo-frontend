@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const registerUser = createAsyncThunk(
-  'movies/registerUser',
+  'user/registerUser',
   async (user) => {
     try {
       const response = await axios.post('/auth/sign-up', user)
@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
 )
 
 export const loginUser = createAsyncThunk(
-  'movies/loginUser',
+  'user/loginUser',
   async ({ email, password }) => {
     try {
       const { data } = await axios({
@@ -37,37 +37,41 @@ export const loginUser = createAsyncThunk(
   }
 )
 
-const moviesSlice = createSlice({
-  name: 'movies',
+const userSlice = createSlice({
+  name: 'user',
   initialState: {},
   reducers: {
-    setFavorite: (state, action) => {
-      state.myList = [...state.myList, action.payload]
-    },
-    deleteFavorite: (state, action) => {
-      state.myList = state.myList.filter(movie => movie.userMovieId !== action.payload)
-    },
-    getVideoSource: (state, action) => {
-      state.playing =
-        state.trends.find(item => item._id === action.payload) ||
-        state.originals.find(item => item._id === action.payload) ||
-        {}
-    },
     logoutRequest: (state, action) => {
-      state.user = action.payload
+      state = action.payload
     }
   },
   extraReducers: (builder) => {
     builder
+      .addCase(registerUser.pending, (state, action) => {
+        state.loading = true
+      })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state.user = action.payload
+        state = { ...action.payload, loading: false, error: '' }
+      })
+      .addCase(registerUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(loginUser.pending, (state, action) => {
+        state = state.user.loading = true
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state.user = action.payload
+        state = { ...action.payload, loading: false, error: '' }
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
       })
   }
 })
 
-export const { setFavorite, deleteFavorite, logoutRequest, getVideoSource } = moviesSlice.actions
+export const getUser = (state) => state.user
 
-export default moviesSlice.reducer
+export const { logoutRequest } = userSlice.actions
+
+export default userSlice.reducer

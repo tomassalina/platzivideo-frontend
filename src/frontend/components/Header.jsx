@@ -2,14 +2,14 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
-import { logoutRequest } from '../app/moviesReducer'
+import { logoutRequest, getUser } from '../app/userSlice'
 
 import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
 import userIcon from '../assets/static/user-icon.png'
 
 const Header = ({ isHome }) => {
-  const user = useSelector(state => state.user)
+  const user = useSelector(getUser)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
