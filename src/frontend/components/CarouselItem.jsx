@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setFavorite, deleteFavorite } from '../app/moviesReducer'
+import axios from 'axios'
 
 import '../assets/styles/components/CarouselItem.scss'
 import playIcon from '../assets/static/play-icon.png'
@@ -10,12 +11,19 @@ import removeIcon from '../assets/static/remove-icon.png'
 import { Link } from 'react-router-dom'
 
 const CarouselItem = props => {
-  const { id, title, cover, year, contentRating, duration, isList } = props
+  const { _id, userMovieId, title, cover, year, contentRating, duration, isList } = props
+  const myList = useSelector(state => state.myList)
   const dispatch = useDispatch()
 
-  const handleSetFavorite = () => {
+  const handleSetFavorite = async () => {
+    const exits = myList.find(movie => movie._id === _id)
+    if (exits) return false
+
+    const { data: userMovieId } = await axios.post('/user-movies', { movieId: _id })
+
     dispatch(setFavorite({
-      id,
+      userMovieId: userMovieId.data,
+      _id,
       title,
       cover,
       year,
@@ -24,7 +32,8 @@ const CarouselItem = props => {
     }))
   }
 
-  const handleDeleteFavorite = itemId => {
+  const handleDeleteFavorite = async itemId => {
+    await axios.delete(`/user-movies/${userMovieId}`)
     dispatch(deleteFavorite(itemId))
   }
 
@@ -33,7 +42,7 @@ const CarouselItem = props => {
       <img className='carousel-item__img' src={cover} alt={title} />
       <div className='carousel-item__details'>
         <div>
-          <Link to={`/player/${id}`}>
+          <Link to={`/player/${_id}`}>
             <img
               className='carousel-item__details--img'
               src={playIcon}
@@ -43,7 +52,7 @@ const CarouselItem = props => {
 
           {isList
             ? (
-              <button type='button' className='carousel-item__details--button' onClick={() => handleDeleteFavorite(id)}>
+              <button type='button' className='carousel-item__details--button' onClick={() => handleDeleteFavorite(userMovieId)}>
                 <img
                   className='carousel-item__details--img'
                   src={removeIcon}
