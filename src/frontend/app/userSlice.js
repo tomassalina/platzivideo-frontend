@@ -5,8 +5,9 @@ export const registerUser = createAsyncThunk(
   'user/registerUser',
   async (user) => {
     try {
-      const response = await axios.post('/auth/sign-up', user)
-      return response.data
+      const { data } = await axios.post('/auth/sign-up', user)
+
+      return data
     } catch (err) {
       return err.message
     }
@@ -41,8 +42,10 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {},
   reducers: {
-    logoutRequest: (state, action) => {
-      state = action.payload
+    logoutRequest: (state) => {
+      state.id = ''
+      state.name = ''
+      state.email = ''
     }
   },
   extraReducers: (builder) => {
@@ -51,17 +54,24 @@ const userSlice = createSlice({
         state.loading = true
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-        state = { ...action.payload, loading: false, error: '' }
+        const { name } = action.payload
+        state.loading = false
+        state.name = name
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })
-      .addCase(loginUser.pending, (state, action) => {
-        state = state.user.loading = true
+      .addCase(loginUser.pending, (state) => {
+        state.loading = true
       })
       .addCase(loginUser.fulfilled, (state, action) => {
-        state = { ...action.payload, loading: false, error: '' }
+        const { id, name, email } = action.payload
+        state.id = id
+        state.name = name
+        state.email = email
+        state.loading = false
+        state.error = ''
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false

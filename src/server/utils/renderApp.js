@@ -63,12 +63,20 @@ const renderApp = async (req, res) => {
     }
   } catch (err) {
     initialState = {
-      user: {},
-      playing: {},
-      loading: false,
-      myList: [],
-      trends: [],
-      originals: []
+      user: {
+        id: '',
+        name: '',
+        email: '',
+        loading: false,
+        error: ''
+      },
+      movies: {
+        playing: {},
+        loading: false,
+        myList: [],
+        trends: [],
+        originals: []
+      }
     }
   }
 

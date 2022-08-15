@@ -7,7 +7,7 @@ import Login from '../containers/Login'
 
 const ProtectedLayout = () => {
   const user = useSelector(getUser)
-  const hasUser = Object.keys(user).length > 0
+  const hasUser = user.id && user.email && user.name
 
   if (!hasUser) {
     return (

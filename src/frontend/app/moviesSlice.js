@@ -30,6 +30,11 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState: {},
   reducers: {
+    clearMovies: (state, action) => {
+      state.myList = []
+      state.trends = []
+      state.originals = []
+    },
     getVideoSource: (state, action) => {
       state.playing =
         state.trends.find(item => item._id === action.payload) ||
@@ -61,6 +66,6 @@ export const getTrends = (state) => state.movies.trends
 export const getOriginals = (state) => state.movies.originals
 export const getPlaying = (state) => state.movies.playing
 
-export const { getVideoSource } = moviesSlice.actions
+export const { getVideoSource, clearMovies } = moviesSlice.actions
 
 export default moviesSlice.reducer

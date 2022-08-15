@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import gravatar from '../utils/gravatar'
 import { logoutRequest, getUser } from '../app/userSlice'
+import { clearMovies } from '../app/moviesSlice'
 
 import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
@@ -20,7 +21,9 @@ const Header = ({ isHome }) => {
     document.cookie = 'name='
     document.cookie = 'email='
     document.cookie = 'token='
-    dispatch(logoutRequest({}))
+
+    dispatch(logoutRequest())
+    dispatch(clearMovies())
     navigate('/login')
   }
 

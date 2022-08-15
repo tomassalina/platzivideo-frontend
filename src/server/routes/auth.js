@@ -26,7 +26,7 @@ function auth (app) {
         req.login(data, { session: false }, async (err) => {
           if (err) next(err)
 
-          const { token, ...user } = data
+          const { token, user } = data
 
           res.cookie('token', token, {
             httpOnly: !(ENV === 'development'),
