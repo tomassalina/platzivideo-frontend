@@ -17,7 +17,7 @@ export const loginUser = createAsyncThunk(
   'user/loginUser',
   async ({ email, password }) => {
     try {
-      const { data } = await axios({
+      const { data: user } = await axios({
         url: '/auth/sign-in',
         method: 'post',
         auth: {
@@ -26,11 +26,11 @@ export const loginUser = createAsyncThunk(
         }
       })
 
-      document.cookie = `id=${data.user?.id}`
-      document.cookie = `name=${data.user?.name}`
-      document.cookie = `email=${data.user?.email}`
+      document.cookie = `id=${user?.id}`
+      document.cookie = `name=${user?.name}`
+      document.cookie = `email=${user?.email}`
 
-      return data.user
+      return user
     } catch (err) {
       return err.message
     }

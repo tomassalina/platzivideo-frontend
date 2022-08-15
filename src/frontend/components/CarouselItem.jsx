@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFavorite, deleteFavorite, getMyList } from '../app/moviesSlice'
-import axios from 'axios'
 
 import '../assets/styles/components/CarouselItem.scss'
 import playIcon from '../assets/static/play-icon.png'
@@ -19,10 +18,7 @@ const CarouselItem = props => {
     const exits = myList.find(movie => movie._id === _id)
     if (exits) return false
 
-    const { data: userMovieId } = await axios.post('/user-movies', { movieId: _id })
-
     dispatch(setFavorite({
-      userMovieId: userMovieId.data,
       _id,
       title,
       cover,
@@ -33,7 +29,6 @@ const CarouselItem = props => {
   }
 
   const handleDeleteFavorite = async itemId => {
-    await axios.delete(`/user-movies/${userMovieId}`)
     dispatch(deleteFavorite(itemId))
   }
 
