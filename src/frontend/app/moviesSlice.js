@@ -1,12 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+export const getMovies = createAsyncThunk(
+  'movies/getMovies',
+  async () => {
+    try {
+      const { data: movies } = await axios.get('/movies')
+      return { movieList: movies.movieList, userMovies: movies.userMovies }
+    } catch (err) {
+      return err.message
+    }
+  }
+)
+
 export const setFavorite = createAsyncThunk(
   'movies/setFavorite',
   async (movie) => {
     try {
       const { data: userMovieId } = await axios.post('/user-movies', { movieId: movie._id })
-
       return { ...movie, userMovieId: userMovieId.data }
     } catch (err) {
       return err.message
@@ -44,6 +55,31 @@ const moviesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getMovies.pending, (state) => {
+        state.loading = true
+      })
+      .addCase(getMovies.fulfilled, (state, action) => {
+        const { movieList, userMovies } = action.payload
+
+        state.myList = userMovies.map((userMovie) => {
+          const favoriteMovie = movieList.find(
+            (movie) => movie._id === userMovie.movieId
+          )
+
+          return { ...favoriteMovie, userMovieId: userMovie._id }
+        })
+        state.trends = movieList.filter(
+          (movie) => movie.contentRating === 'PG' && movie._id
+        )
+        state.originals = movieList.filter(
+          (movie) => movie.contentRating === 'G' && movie._id
+        )
+        state.loading = false
+      })
+      .addCase(getMovies.rejected, (state, action) => {
+        state.loading = true
+        state.error = action.payload
+      })
       .addCase(setFavorite.pending, (state, action) => {
         state.loading = true
       })

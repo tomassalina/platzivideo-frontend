@@ -9,6 +9,7 @@ import getManifest from './utils/getManifest'
 import renderApp from './utils/renderApp'
 
 import auth from './routes/auth'
+import movies from './routes/movies'
 import userMovies from './routes/userMovies'
 
 // config
@@ -45,6 +46,7 @@ if (ENV === 'development') {
 }
 
 auth(app)
+movies(app)
 userMovies(app)
 app.get('*', renderApp)
 

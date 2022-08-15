@@ -1,4 +1,3 @@
-import axios from 'axios'
 import jwt from 'jsonwebtoken'
 
 import React from 'react'
@@ -10,11 +9,10 @@ import moviesSlice from '../../frontend/app/moviesSlice'
 import userSlice from '../../frontend/app/userSlice'
 import App from '../../frontend/routes/App'
 
+import setInitialState from './setInitialState'
 import setResponse from './setResponse.js'
 
 const renderApp = async (req, res) => {
-  let initialState
-
   const { token } = req.cookies
   const verifyToken = jwt.decode(token) || {
     sub: { email: undefined, name: undefined, id: undefined }
@@ -24,61 +22,7 @@ const renderApp = async (req, res) => {
   const name = req.cookies.name || verifyToken.sub.name
   const id = req.cookies.id || verifyToken.sub.id
 
-  try {
-    let { data: userMovies } = await axios({
-      url: `${process.env.API_URL}/api/user-movies`,
-      headers: { Authorization: `Bearer ${token}` },
-      method: 'get'
-    })
-
-    userMovies = userMovies.data
-
-    let { data: movieList } = await axios({
-      url: `${process.env.API_URL}/api/movies`,
-      headers: { Authorization: `Bearer ${token}` },
-      method: 'get'
-    })
-
-    movieList = movieList.data
-
-    initialState = {
-      user: { email, name, id, loading: false, error: '' },
-      movies: {
-        playing: {},
-        loading: false,
-        myList: userMovies.map((userMovie) => {
-          const favoriteMovie = movieList.find(
-            (movie) => movie._id === userMovie.movieId
-          )
-
-          return { ...favoriteMovie, userMovieId: userMovie._id }
-        }),
-        trends: movieList.filter(
-          (movie) => movie.contentRating === 'PG' && movie._id
-        ),
-        originals: movieList.filter(
-          (movie) => movie.contentRating === 'G' && movie._id
-        )
-      }
-    }
-  } catch (err) {
-    initialState = {
-      user: {
-        id: '',
-        name: '',
-        email: '',
-        loading: false,
-        error: ''
-      },
-      movies: {
-        playing: {},
-        loading: false,
-        myList: [],
-        trends: [],
-        originals: []
-      }
-    }
-  }
+  const initialState = await setInitialState({ token, email, name, id })
 
   const store = configureStore({
     reducer: {

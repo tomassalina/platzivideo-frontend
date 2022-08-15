@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { getMovies } from './moviesSlice'
 
 export const registerUser = createAsyncThunk(
   'user/registerUser',
@@ -16,7 +17,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async ({ email, password }) => {
+  async ({ email, password }, thunkAPI) => {
     try {
       const { data: user } = await axios({
         url: '/auth/sign-in',
@@ -30,6 +31,8 @@ export const loginUser = createAsyncThunk(
       document.cookie = `id=${user?.id}`
       document.cookie = `name=${user?.name}`
       document.cookie = `email=${user?.email}`
+
+      thunkAPI.dispatch(getMovies())
 
       return user
     } catch (err) {
