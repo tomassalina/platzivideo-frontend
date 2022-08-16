@@ -84,6 +84,7 @@ const userSlice = createSlice({
 })
 
 export const getUser = (state) => state.user
+export const getUserIsLoading = (state) => state.user.loading
 
 export const { logoutRequest } = userSlice.actions
 

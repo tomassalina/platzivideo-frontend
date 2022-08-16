@@ -101,6 +101,7 @@ export const getMyList = (state) => state.movies.myList
 export const getTrends = (state) => state.movies.trends
 export const getOriginals = (state) => state.movies.originals
 export const getPlaying = (state) => state.movies.playing
+export const getMoviesAreLoading = (state) => state.movies.loading
 
 export const { getVideoSource, clearMovies } = moviesSlice.actions
 
