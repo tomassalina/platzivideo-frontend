@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { toast } from 'react-hot-toast'
 
 export const getMovies = createAsyncThunk(
   'movies/getMovies',
@@ -18,6 +19,9 @@ export const setFavorite = createAsyncThunk(
   async (movie) => {
     try {
       const { data: userMovieId } = await axios.post('/user-movies', { movieId: movie._id })
+
+      toast.success('Agregada correctamente a tu lista')
+
       return { ...movie, userMovieId: userMovieId.data }
     } catch (err) {
       return err.message
@@ -30,6 +34,7 @@ export const deleteFavorite = createAsyncThunk(
   async (userMovieId) => {
     try {
       await axios.delete(`/user-movies/${userMovieId}`)
+
       return userMovieId
     } catch (err) {
       return err.message

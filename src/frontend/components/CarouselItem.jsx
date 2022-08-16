@@ -8,6 +8,7 @@ import playIcon from '../assets/static/play-icon.png'
 import plusIcon from '../assets/static/plus-icon.png'
 import removeIcon from '../assets/static/remove-icon.png'
 import { Link } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const CarouselItem = props => {
   const { _id, userMovieId, title, cover, year, contentRating, duration, isList } = props
@@ -16,7 +17,7 @@ const CarouselItem = props => {
 
   const handleSetFavorite = async () => {
     const exits = myList.find(movie => movie._id === _id)
-    if (exits) return false
+    if (exits) return toast.error('Ya se encuentra en la lista')
 
     dispatch(setFavorite({
       _id,

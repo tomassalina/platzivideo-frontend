@@ -9,7 +9,7 @@ export const registerUser = createAsyncThunk(
     try {
       const { data } = await axios.post('/auth/sign-up', user)
 
-      toast.success('User created successfully!')
+      toast.success('Usuario creado correctamente!')
 
       return data
     } catch (err) {
@@ -40,7 +40,7 @@ export const loginUser = createAsyncThunk(
 
       return user
     } catch (err) {
-      toast.error('Invalid username or password')
+      toast.error('Usuario o contraseña incorrectos')
       return thunkAPI.rejectWithValue(err.response.data.message)
     }
   }
