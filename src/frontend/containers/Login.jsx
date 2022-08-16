@@ -22,10 +22,10 @@ const Login = () => {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    dispatch(loginUser(form))
-    navigate('/')
+    const res = await dispatch(loginUser(form))
+    if (!res.error) navigate('/')
   }
 
   return (

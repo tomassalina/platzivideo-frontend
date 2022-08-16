@@ -8,6 +8,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import moviesSlice from '../../frontend/app/moviesSlice'
 import userSlice from '../../frontend/app/userSlice'
 import App from '../../frontend/routes/App'
+import { Toaster } from 'react-hot-toast'
 
 import setInitialState from './setInitialState'
 import setResponse from './setResponse.js'
@@ -36,6 +37,7 @@ const renderApp = async (req, res) => {
     <Provider store={store}>
       <StaticRouter location={req.url}>
         <App />
+        <Toaster position='top-center' />
       </StaticRouter>
     </Provider>
   )

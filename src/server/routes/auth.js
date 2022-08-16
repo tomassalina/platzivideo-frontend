@@ -1,6 +1,5 @@
 import express from 'express'
 import passport from 'passport'
-import boom from '@hapi/boom'
 import axios from 'axios'
 
 const { ENV, API_URL } = require('../config')
@@ -21,7 +20,12 @@ function auth (app) {
       const TWO_HOURS_IN_SEC = 2 * 60 * 60 * 1000
 
       try {
-        if (error || !data) next(boom.unauthorized())
+        if (error || !data) {
+          return res.status(400).json({
+            statusCode: 400,
+            message: 'Invalid username or password'
+          })
+        }
 
         req.login(data, { session: false }, async (err) => {
           if (err) next(err)
@@ -62,7 +66,9 @@ function auth (app) {
         id: userData.data?.data
       })
     } catch (err) {
-      console.log(err)
+      const errData = err.response.data
+
+      if (errData.statusCode === 400) res.status(400).json(errData)
     }
   })
 }

@@ -22,10 +22,10 @@ const Register = (props) => {
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    dispatch(registerUser(form))
-    navigate('/login')
+    const res = await dispatch(registerUser(form))
+    if (!res.error) navigate('/login')
   }
 
   return (

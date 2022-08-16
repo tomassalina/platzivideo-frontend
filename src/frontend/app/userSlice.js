@@ -1,16 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { getMovies } from './moviesSlice'
+import { toast } from 'react-hot-toast'
 
 export const registerUser = createAsyncThunk(
   'user/registerUser',
-  async (user) => {
+  async (user, thunkAPI) => {
     try {
       const { data } = await axios.post('/auth/sign-up', user)
 
+      toast.success('User created successfully!')
+
       return data
     } catch (err) {
-      return err.message
+      toast.error(err.response.data.message)
+      return thunkAPI.rejectWithValue(err.response.data.message)
     }
   }
 )
@@ -36,7 +40,8 @@ export const loginUser = createAsyncThunk(
 
       return user
     } catch (err) {
-      return err.message
+      toast.error('Invalid username or password')
+      return thunkAPI.rejectWithValue(err.response.data.message)
     }
   }
 )
@@ -58,8 +63,10 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         const { name } = action.payload
-        state.loading = false
+
         state.name = name
+        state.loading = false
+        state.error = ''
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false
@@ -85,6 +92,7 @@ const userSlice = createSlice({
 
 export const getUser = (state) => state.user
 export const getUserIsLoading = (state) => state.user.loading
+export const getUserError = (state) => state.user.error
 
 export const { logoutRequest } = userSlice.actions
 

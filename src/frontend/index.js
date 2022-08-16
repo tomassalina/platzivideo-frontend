@@ -7,6 +7,7 @@ import moviesSlice from './app/moviesSlice'
 import userSlice from './app/userSlice'
 
 import App from './routes/App'
+import { Toaster } from 'react-hot-toast'
 
 const store = configureStore({
   reducer: {
@@ -23,6 +24,7 @@ ReactDOM.hydrateRoot(
   <Provider store={store}>
     <BrowserRouter>
       <App />
+      <Toaster position='top-center' />
     </BrowserRouter>
   </Provider>
 )
