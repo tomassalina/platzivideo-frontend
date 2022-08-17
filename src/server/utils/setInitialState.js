@@ -30,12 +30,12 @@ const setInitialState = async ({ token, email, name, id }) => {
 
           return { ...favoriteMovie, userMovieId: userMovie._id }
         }),
-        trends: movieList.filter(
-          (movie) => movie.contentRating === 'PG' && movie._id
-        ),
-        originals: movieList.filter(
-          (movie) => movie.contentRating === 'G' && movie._id
-        )
+        trends: movieList.filter(movie => movie.tags.includes('trends')),
+        originals: movieList.filter(movie => movie.tags.includes('originals')),
+        action: movieList.filter(movie => movie.tags.includes('action')),
+        family: movieList.filter(movie => movie.tags.includes('family')),
+        terror: movieList.filter(movie => movie.tags.includes('terror')),
+        kids: movieList.filter(movie => movie.tags.includes('kids'))
       }
     }
 

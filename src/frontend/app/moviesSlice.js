@@ -105,6 +105,10 @@ const moviesSlice = createSlice({
 export const getMyList = (state) => state.movies.myList
 export const getTrends = (state) => state.movies.trends
 export const getOriginals = (state) => state.movies.originals
+export const getAction = (state) => state.movies.action
+export const getFamily = (state) => state.movies.family
+export const getTerror = (state) => state.movies.terror
+export const getKids = (state) => state.movies.kids
 export const getPlaying = (state) => state.movies.playing
 export const getMoviesAreLoading = (state) => state.movies.loading
 

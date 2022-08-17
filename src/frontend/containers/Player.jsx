@@ -5,7 +5,6 @@ import { getVideoSource, getPlaying } from '../app/moviesSlice'
 
 import '../assets/styles/components/Player.scss'
 import NotFound from './NotFound'
-import VideoDemo from '../assets/static/demo.min.mp4'
 
 const Player = () => {
   const dispatch = useDispatch()
@@ -22,7 +21,7 @@ const Player = () => {
     ? (
       <div className='Player'>
         <video controls autoPlay>
-          <source src={VideoDemo} type='video/mp4' />
+          <source src='https://st-platzivideo.up.railway.app/assets/images/demo.min.mp4' type='video/mp4' />
         </video>
         <div className='Player-back'>
           <Link className='Player-link' to='/'>
