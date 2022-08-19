@@ -2,6 +2,7 @@ import express from 'express'
 import axios from 'axios'
 
 import { API_URL } from '../config'
+import getMovies from '../services/getMovies'
 
 function movies (app) {
   const router = express.Router()
@@ -12,25 +13,49 @@ function movies (app) {
     const { token } = req.cookies
 
     try {
-      let { data: userMovies } = await axios({
-        url: `${API_URL}/api/user-movies`,
-        headers: { Authorization: `Bearer ${token}` },
-        method: 'get'
-      })
+      const { myList, categories } = await getMovies(token)
 
-      userMovies = userMovies.data
+      res.status(200).json({ myList, categories })
+    } catch (err) {
+      next(err)
+    }
+  })
 
-      let { data: movieList } = await axios({
+  router.get('/search', async (req, res, next) => {
+    const { token } = req.cookies
+    const { query } = req.query || ''
+
+    try {
+      const { data: movies } = await axios({
         method: 'get',
-        url: `${API_URL}/api/movies`,
+        url: `${API_URL}/api/movies?query=${query}`,
         headers: { Authorization: `Bearer ${token}` }
       })
 
-      movieList = movieList.data
-
-      res.status(200).json({ userMovies, movieList })
+      res.status(200).json({ movies: movies.data })
     } catch (err) {
-      next(err)
+      const { status, data } = err.response
+
+      res.status(status).json(data)
+    }
+  })
+
+  router.get('/:id', async (req, res, next) => {
+    const { token } = req.cookies
+    const { id } = req.params
+
+    try {
+      const { data: movie } = await axios({
+        method: 'get',
+        url: `${API_URL}/api/movies/${id}`,
+        headers: { Authorization: `Bearer ${token}` }
+      })
+
+      res.status(200).json({ movie: movie.data })
+    } catch (err) {
+      const { status, data } = err.response
+
+      res.status(status).json(data)
     }
   })
 }

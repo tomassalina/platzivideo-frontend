@@ -11,13 +11,35 @@
     font-size: 25px;
     margin-bottom: 24px;
   }
-  .input {
+  &__form {
     width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: rgba(255, 255, 255, 0.1);
     border: 2px solid var(--white-color);
     border-radius: 25px;
   }
-  .input:focus {
-    outline: 2px solid var(--secondary-color);
+  .input {
+    width: 100%;
+    background: transparent;
+    border: transparent;
+    border-right: 2px solid var(--white-color);
+    margin: 0;
+    border-radius: 40px 0 0 40px;
+  }
+  &__search-button {
+    height: 100%;
+    padding: 0 20px;
+    background: transparent;
+    color: var(--white-color);
+    font-size: 16px;
+    border: none;
+    border-radius: 0 40px 40px 0;
+    cursor: pointer;
+  }
+  .input:focus,
+  &__search-button:focus {
+    outline: 2px solid var(--purple-color);
   }
 }

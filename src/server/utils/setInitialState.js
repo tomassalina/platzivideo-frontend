@@ -1,41 +1,16 @@
-import axios from 'axios'
+import getMovies from '../services/getMovies'
 
 const setInitialState = async ({ token, email, name, id }) => {
   try {
-    let { data: userMovies } = await axios({
-      url: `${process.env.API_URL}/api/user-movies`,
-      headers: { Authorization: `Bearer ${token}` },
-      method: 'get'
-    })
-
-    userMovies = userMovies.data
-
-    let { data: movieList } = await axios({
-      url: `${process.env.API_URL}/api/movies`,
-      headers: { Authorization: `Bearer ${token}` },
-      method: 'get'
-    })
-
-    movieList = movieList.data
+    const { myList, categories } = await getMovies(token)
 
     const initialState = {
       user: { email, name, id, loading: false, error: '' },
       movies: {
         playing: {},
         loading: false,
-        myList: userMovies.map((userMovie) => {
-          const favoriteMovie = movieList.find(
-            (movie) => movie._id === userMovie.movieId
-          )
-
-          return { ...favoriteMovie, userMovieId: userMovie._id }
-        }),
-        trends: movieList.filter(movie => movie.tags.includes('trends')),
-        originals: movieList.filter(movie => movie.tags.includes('originals')),
-        action: movieList.filter(movie => movie.tags.includes('action')),
-        family: movieList.filter(movie => movie.tags.includes('family')),
-        terror: movieList.filter(movie => movie.tags.includes('terror')),
-        kids: movieList.filter(movie => movie.tags.includes('kids'))
+        myList,
+        categories
       }
     }
 
@@ -53,8 +28,14 @@ const setInitialState = async ({ token, email, name, id }) => {
         playing: {},
         loading: false,
         myList: [],
-        trends: [],
-        originals: []
+        categories: {
+          trends: { title: 'Tendencias', list: [] },
+          originals: { title: 'Originales de PlatziVideo', list: [] },
+          action: { title: 'Acción', list: [] },
+          family: { title: 'Para ver en familia', list: [] },
+          terror: { title: 'Terror', list: [] },
+          kids: { title: 'Kids', list: [] }
+        }
       }
     }
 

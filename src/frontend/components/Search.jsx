@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { getTrends, getOriginals } from '../app/moviesSlice'
+import React, { useRef } from 'react'
 
 import '../assets/styles/components/Search.scss'
 import useSearchMovies from '../hooks/useSearchMovies'
@@ -9,20 +7,28 @@ import Carousel from './Carousel'
 import CarouselItem from './CarouselItem'
 
 const Search = () => {
-  const trends = useSelector(getTrends)
-  const originals = useSelector(getOriginals)
-  const [movies, setMovies] = useState([])
-  const { query, setQuery, filteredMovies } = useSearchMovies(movies)
+  const { setQuery, filteredMovies } = useSearchMovies()
+  const formInput = useRef(null)
 
-  useEffect(() => {
-    setMovies([...trends, ...originals])
-  }, [trends, originals])
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const query = formInput.current.value
+    setQuery(query)
+  }
 
   return (
     <>
       <section className='main'>
         <h2 className='main__title'>¿Qué quieres ver hoy?</h2>
-        <input className='input' value={query} onChange={(e) => setQuery(e.target.value)} type='text' placeholder='Buscar...' />
+        <form className='main__form' onSubmit={handleSubmit}>
+          <input
+            type='text'
+            className='input'
+            ref={formInput}
+            placeholder='Filtra por tu película favorita...'
+          />
+          <button className='main__search-button' type='submit'>Buscar</button>
+        </form>
       </section>
       {
         filteredMovies.length > 0 && (

@@ -21,7 +21,7 @@ const Player = () => {
     ? (
       <div className='Player'>
         <video controls autoPlay>
-          <source src='https://st-platzivideo.up.railway.app/assets/images/demo.min.mp4' type='video/mp4' />
+          <source src={playing} type='video/mp4' />
         </video>
         <div className='Player-back'>
           <Link className='Player-link' to='/'>

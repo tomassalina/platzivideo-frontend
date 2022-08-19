@@ -7,9 +7,21 @@ export const getMovies = createAsyncThunk(
   async () => {
     try {
       const { data: movies } = await axios.get('/movies')
-      return { movieList: movies.movieList, userMovies: movies.userMovies }
+      return { myList: movies.myList, categories: movies.categories }
     } catch (err) {
       return err.message
+    }
+  }
+)
+
+export const getVideoSource = createAsyncThunk(
+  'movies/getVideoSource',
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.get(`/movies/${id}`)
+      return data.movie?.source
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message)
     }
   }
 )
@@ -48,14 +60,14 @@ const moviesSlice = createSlice({
   reducers: {
     clearMovies: (state, action) => {
       state.myList = []
-      state.trends = []
-      state.originals = []
-    },
-    getVideoSource: (state, action) => {
-      state.playing =
-        state.trends.find(item => item._id === action.payload) ||
-        state.originals.find(item => item._id === action.payload) ||
-        {}
+      state.categories = {
+        trends: { title: 'Tendencias', list: [] },
+        originals: { title: 'Originales de PlatziVideo', list: [] },
+        action: { title: 'Acción', list: [] },
+        family: { title: 'Para ver en familia', list: [] },
+        terror: { title: 'Terror', list: [] },
+        kids: { title: 'Kids', list: [] }
+      }
     }
   },
   extraReducers: (builder) => {
@@ -64,27 +76,20 @@ const moviesSlice = createSlice({
         state.loading = true
       })
       .addCase(getMovies.fulfilled, (state, action) => {
-        const { movieList, userMovies } = action.payload
-
-        state.myList = userMovies.map((userMovie) => {
-          const favoriteMovie = movieList.find(
-            (movie) => movie._id === userMovie.movieId
-          )
-
-          return { ...favoriteMovie, userMovieId: userMovie._id }
-        })
-        state.trends = movieList.filter(
-          (movie) => movie.contentRating === 'PG' && movie._id
-        )
-        state.originals = movieList.filter(
-          (movie) => movie.contentRating === 'G' && movie._id
-        )
+        const { myList, categories } = action.payload
+        state.myList = myList
+        state.categories = categories
         state.loading = false
       })
       .addCase(getMovies.rejected, (state, action) => {
         state.loading = true
         state.error = action.payload
       })
+
+      .addCase(getVideoSource.fulfilled, (state, action) => {
+        state.playing = action.payload
+      })
+
       .addCase(setFavorite.pending, (state, action) => {
         state.loading = true
       })
@@ -95,6 +100,7 @@ const moviesSlice = createSlice({
       .addCase(deleteFavorite.pending, (state, action) => {
         state.loading = true
       })
+
       .addCase(deleteFavorite.fulfilled, (state, action) => {
         state.myList = state.myList.filter(movie => movie.userMovieId !== action.payload)
         state.loading = false
@@ -103,15 +109,10 @@ const moviesSlice = createSlice({
 })
 
 export const getMyList = (state) => state.movies.myList
-export const getTrends = (state) => state.movies.trends
-export const getOriginals = (state) => state.movies.originals
-export const getAction = (state) => state.movies.action
-export const getFamily = (state) => state.movies.family
-export const getTerror = (state) => state.movies.terror
-export const getKids = (state) => state.movies.kids
+export const getCategories = (state) => state.movies.categories
 export const getPlaying = (state) => state.movies.playing
 export const getMoviesAreLoading = (state) => state.movies.loading
 
-export const { getVideoSource, clearMovies } = moviesSlice.actions
+export const { clearMovies } = moviesSlice.actions
 
 export default moviesSlice.reducer
