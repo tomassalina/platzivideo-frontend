@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -53,6 +54,14 @@ module.exports = {
     }),
     new Dotenv(),
     new WebpackManifestPlugin(),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, 'src/frontend/assets/static/demo.min.mp4'),
+          to: 'assets/images/demo.min.mp4'
+        }
+      ]
+    }),
     new CleanWebpackPlugin()
   ],
   optimization: {
