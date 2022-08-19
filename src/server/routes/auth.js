@@ -16,7 +16,7 @@ function auth (app) {
     const { rememberMe } = req.body
 
     passport.authenticate('basic', (error, data) => {
-      const SEVEN_DAYS_IN_SEC = 7 * 24 * 60 * 60 * 1000
+      const THREE_DAYS_IN_SEC = 3 * 24 * 60 * 60 * 1000
       const TWO_HOURS_IN_SEC = 2 * 60 * 60 * 1000
 
       try {
@@ -35,7 +35,7 @@ function auth (app) {
           res.cookie('token', token, {
             httpOnly: !(ENV === 'development'),
             secure: !(ENV === 'development'),
-            maxAge: rememberMe ? SEVEN_DAYS_IN_SEC : TWO_HOURS_IN_SEC
+            maxAge: rememberMe ? THREE_DAYS_IN_SEC : TWO_HOURS_IN_SEC
           })
 
           res.status(200).json(user)

@@ -21,7 +21,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   'user/loginUser',
-  async ({ email, password }, thunkAPI) => {
+  async ({ email, password, rememberMe }, thunkAPI) => {
     try {
       const { data: user } = await axios({
         url: '/auth/sign-in',
@@ -29,7 +29,8 @@ export const loginUser = createAsyncThunk(
         auth: {
           username: email,
           password
-        }
+        },
+        data: { rememberMe }
       })
 
       document.cookie = `id=${user?.id}`

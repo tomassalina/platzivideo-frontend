@@ -13,7 +13,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const [form, setForm] = useState({ email: '' })
+  const [form, setForm] = useState({ email: '', password: '', rememberMe: false })
 
   const handleChange = (event) => {
     setForm({
@@ -52,7 +52,14 @@ const Login = () => {
             <button type='submit' className='button'>Iniciar sesión</button>
             <div className='login__container--remember-me'>
               <label>
-                <input type='checkbox' id='cbox1' value='first_checkbox' />
+                <input
+                  name='rememberMe'
+                  type='checkbox'
+                  checked={form.rememberMe}
+                  onChange={() => setForm((prevForm) => {
+                    return { ...prevForm, rememberMe: !form.rememberMe }
+                  })}
+                />
                 Recuérdame
               </label>
               <a href='/'>Olvidé mi contraseña</a>
