@@ -66,10 +66,10 @@ const Login = () => {
             </div>
           </form>
           <section className='login__container--social-media'>
-            <Link to='/'>
+            <a href='/auth/google'>
               <img src={googleIcon} /> Inicia sesión con Google
-            </Link>
-            <Link to='/'>
+            </a>
+            <Link to='/auth/twitter'>
               <img src={twitterIcon} /> Inicia sesión con Twitter
             </Link>
           </section>

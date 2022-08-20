@@ -1,4 +1,5 @@
 import express from 'express'
+import session from 'express-session'
 import webpack from 'webpack'
 import path from 'path'
 import helmet from 'helmet'
@@ -13,7 +14,7 @@ import movies from './routes/movies'
 import userMovies from './routes/userMovies'
 
 // config
-const { ENV, PORT } = require('./config')
+const { ENV, PORT, SESSION_SECRET } = require('./config')
 const app = express()
 
 // parsers
@@ -21,8 +22,9 @@ app.use(express.json())
 app.use(cookieParser())
 
 // session
+app.use(session({ secret: SESSION_SECRET }))
 app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.session())
 
 if (ENV === 'development') {
   console.log('Development config in process...')

@@ -1,11 +1,15 @@
 import express from 'express'
 import passport from 'passport'
+import boom from '@hapi/boom'
 import axios from 'axios'
 
 const { ENV, API_URL } = require('../config')
 
 // Basic strategy
 require('../utils/auth/strategies/basic')
+
+// Google OAtuh 2.0 Strategy
+require('../utils/auth/strategies/google')
 
 function auth (app) {
   const router = express.Router()
@@ -71,6 +75,48 @@ function auth (app) {
       if (errData.statusCode === 400) res.status(400).json(errData)
     }
   })
+
+  router.get(
+    '/google',
+    passport.authenticate('google', {
+      scope: ['email', 'profile', 'openid']
+    })
+  )
+
+  router.get(
+    '/google/callback',
+    passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+    (req, res, next) => {
+      if (!req.user) {
+        next(boom.unauthorized())
+      }
+
+      const { token, ...user } = req.user
+
+      res.cookie('token', token, {
+        httpOnly: !(process.env.ENV === 'development'),
+        secure: !(process.env.ENV === 'development')
+      })
+
+      res.cookie('email', user.user.email)
+      res.cookie('name', user.user.name)
+      res.cookie('id', user.user.id)
+
+      res.status(200).send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Loading...</title>
+        </head>
+        <body>
+          <script>
+            window.location.href = "/";
+          </script>
+        </body>
+      </html>
+    `)
+    }
+  )
 }
 
 export default auth

@@ -9,10 +9,10 @@ const useSearchMovies = () => {
   useMemo(async () => {
     if (query === '') return setFilteredMovies([])
 
-    const getFilterededMovies = axios.get(`/movies/search?query=${query}`)
+    const getFilteredMovies = axios.get(`/movies/search?query=${query}`)
 
     try {
-      const { data: filteredMovies } = await toast.promise(getFilterededMovies, {
+      const { data: filteredMovies } = await toast.promise(getFilteredMovies, {
         loading: 'Cargando...',
         success: 'Busqueda exitosa',
         error: 'Algo salió mal'
