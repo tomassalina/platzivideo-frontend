@@ -25,7 +25,7 @@ const Search = () => {
             type='text'
             className='input'
             ref={formInput}
-            placeholder='Filtra por tu película favorita...'
+            placeholder='Filtra por peliculas...'
           />
           <button className='main__search-button' type='submit'>Buscar</button>
         </form>

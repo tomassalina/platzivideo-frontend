@@ -1,10 +1,75 @@
 @media only screen and (max-width: 600px) {
+  .header {
+    &__img {
+      width: 160px;
+      margin-left: 15px;
+    }
+    &__menu {
+      margin-right: 15px;
+      ul {
+        right: 15px;
+        width: 110px;
+      }
+    }
+    &__menu--profile {
+      width: 100%;
+      img {
+        width: 30px;
+      }
+    }
+  }
+
+  .main {
+    .main__form {
+      width: 90%;
+    }
+  }
   .main__description--title {
     font-size: 30px;
+  }
+
+  .categories {
+    margin-bottom: 40px;
+    &__title {
+      padding-left: 20px !important;
+    }
+    .carousel {
+      padding-left: 15px;
+      &__container {
+        margin: 50px 0;
+      }
+      &-item,
+      &-item__img {
+        width: 140px;
+        height: 175px;
+      }
+      &-item:hover ~ .carousel-item,
+      &-item:focus ~ .carousel-item {
+        transform: translateX(70px);
+      }
+      &::-webkit-scrollbar {
+        height: 5px;
+      }
+    }
+  }
+
+  .login .login__container,
+  .register .register__container {
+    width: 100%;
+    border: none;
+    border-radius: none;
+    background-color: transparent;
+    padding: 0;
+  }
+  .register .register__container {
+    min-height: 500px;
   }
 
   .footer {
     align-items: flex-start;
     flex-direction: column;
+    a {
+      padding-left: 15px;
+    }
   }
 }
