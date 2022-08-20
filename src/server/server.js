@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 // session
-app.use(session({ secret: SESSION_SECRET }))
+app.use(session({ secret: SESSION_SECRET, resave: true }))
 app.use(passport.initialize())
 app.use(passport.session())
 
@@ -52,7 +52,7 @@ movies(app)
 userMovies(app)
 app.get('*', renderApp)
 
-app.listen(PORT, (err) => {
+app.listen(PORT, err => {
   if (err) console.log(err)
   else console.log(`Server running on port ${PORT}`)
 })

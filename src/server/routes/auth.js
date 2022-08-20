@@ -11,10 +11,15 @@ require('../utils/auth/strategies/basic')
 // Google OAtuh 2.0 Strategy
 require('../utils/auth/strategies/google')
 
+// Twitter Strategy
+require('../utils/auth/strategies/twitter')
+
 function auth (app) {
   const router = express.Router()
 
   app.use('/auth', router)
+
+  // BASIC STRATEGY:
 
   router.post('/sign-in', async function (req, res, next) {
     const { rememberMe } = req.body
@@ -31,7 +36,7 @@ function auth (app) {
           })
         }
 
-        req.login(data, { session: false }, async (err) => {
+        req.login(data, { session: false }, async err => {
           if (err) next(err)
 
           const { token, user } = data
@@ -76,6 +81,8 @@ function auth (app) {
     }
   })
 
+  // GOOGLE OAUTH STRATEGY:
+
   router.get(
     '/google',
     passport.authenticate('google', {
@@ -85,7 +92,10 @@ function auth (app) {
 
   router.get(
     '/google/callback',
-    passport.authenticate('google', { session: false, failureRedirect: '/login' }),
+    passport.authenticate('google', {
+      session: false,
+      failureRedirect: '/login'
+    }),
     (req, res, next) => {
       if (!req.user) {
         next(boom.unauthorized())
@@ -107,6 +117,47 @@ function auth (app) {
       <html>
         <head>
           <title>Loading...</title>
+        </head>
+        <body>
+          <script>
+            window.location.href = "/";
+          </script>
+        </body>
+      </html>
+    `)
+    }
+  )
+
+  // TWITTER STRATEGY:
+  router.get('/twitter', passport.authenticate('twitter'))
+
+  router.get(
+    '/twitter/callback',
+    passport.authenticate('twitter', {
+      session: false,
+      failureRedirect: '/login'
+    }),
+    (req, res, next) => {
+      if (!req.user) {
+        next(boom.unauthorized())
+      }
+
+      const { token, ...user } = req.user
+
+      res.cookie('token', token, {
+        httpOnly: !(ENV === 'development'),
+        secure: !(ENV === 'development')
+      })
+
+      res.cookie('email', user.user.email)
+      res.cookie('name', user.user.name)
+      res.cookie('id', user.user.id)
+
+      res.status(200).send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Loading</title>
         </head>
         <body>
           <script>

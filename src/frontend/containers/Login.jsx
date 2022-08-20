@@ -69,9 +69,9 @@ const Login = () => {
             <a href='/auth/google'>
               <img src={googleIcon} /> Inicia sesión con Google
             </a>
-            <Link to='/auth/twitter'>
+            <a href='/auth/twitter/'>
               <img src={twitterIcon} /> Inicia sesión con Twitter
-            </Link>
+            </a>
           </section>
           <p className='login__container--register'>
             No tienes ninguna cuenta <Link to='/register'>Regístrate</Link>

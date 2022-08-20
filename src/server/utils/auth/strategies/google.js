@@ -2,6 +2,7 @@ const passport = require('passport')
 const GoogleStrategy = require('passport-google-oauth20').Strategy
 const boom = require('@hapi/boom')
 const axios = require('axios')
+
 const { API_URL, API_KEY_TOKEN, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } = require('../../../config')
 
 passport.use(
@@ -22,8 +23,6 @@ passport.use(
           apiKeyToken: API_KEY_TOKEN
         }
       })
-
-      console.log(data)
 
       if (!data || status !== 200) {
         return cb(boom.unauthorized(), false)
