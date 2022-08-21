@@ -81,6 +81,19 @@ function auth (app) {
     }
   })
 
+  // LOGOUT:
+
+  router.delete('/logout', function (req, res) {
+    if (req.session) {
+      req.session.destroy(err => {
+        if (err) res.status(400).send('Unable to log out')
+        else res.send('Logout successful')
+      })
+    } else {
+      res.end()
+    }
+  })
+
   // GOOGLE OAUTH STRATEGY:
 
   router.get(
@@ -157,7 +170,7 @@ function auth (app) {
       <!DOCTYPE html>
       <html>
         <head>
-          <title>Loading</title>
+          <title>Loading...</title>
         </head>
         <body>
           <script>

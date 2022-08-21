@@ -8,6 +8,7 @@ import { clearMovies } from '../app/moviesSlice'
 import '../assets/styles/components/Header.scss'
 import logo from '../assets/static/logo-platzi-video-BW2.png'
 import userIcon from '../assets/static/user-icon.png'
+import destroySession from '../utils/destroySession'
 
 const Header = ({ isHome }) => {
   const user = useSelector(getUser)
@@ -17,11 +18,7 @@ const Header = ({ isHome }) => {
   const hasUser = Object.keys(user).length > 0
 
   const handleLogout = () => {
-    document.cookie = 'id='
-    document.cookie = 'name='
-    document.cookie = 'email='
-    document.cookie = 'token='
-
+    destroySession()
     dispatch(logoutRequest())
     dispatch(clearMovies())
     navigate('/login')
