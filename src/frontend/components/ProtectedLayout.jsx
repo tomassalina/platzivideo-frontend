@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { getUser } from '../app/userSlice'
 import Header from './Header'
@@ -8,6 +8,7 @@ import Login from '../containers/Login'
 const ProtectedLayout = () => {
   const user = useSelector(getUser)
   const hasUser = user.id && user.email && user.name
+  const location = useLocation()
 
   if (!hasUser) {
     return (
@@ -21,9 +22,9 @@ const ProtectedLayout = () => {
 
   return (
     <>
-      <Header isHome />
+      <Header isHome={location.pathname === '/'} />
       <Outlet />
-      <Footer isHome />
+      <Footer isHome={location.pathname === '/'} />
     </>
   )
 }

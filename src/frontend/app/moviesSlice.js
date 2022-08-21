@@ -72,6 +72,7 @@ const moviesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      // MOVIES
       .addCase(getMovies.pending, (state) => {
         state.loading = true
       })
@@ -86,10 +87,19 @@ const moviesSlice = createSlice({
         state.error = action.payload
       })
 
+      // GET VIDEO SOURTE
+      .addCase(getVideoSource.pending, (state, action) => {
+        state.loading = true
+      })
       .addCase(getVideoSource.fulfilled, (state, action) => {
         state.playing = action.payload
+        state.loading = false
+      })
+      .addCase(getVideoSource.rejected, (state, action) => {
+        state.loading = false
       })
 
+      // SET FAVORITE
       .addCase(setFavorite.pending, (state, action) => {
         state.loading = true
       })
@@ -101,6 +111,7 @@ const moviesSlice = createSlice({
         state.loading = true
       })
 
+      // DELETE FAVORITE
       .addCase(deleteFavorite.fulfilled, (state, action) => {
         state.myList = state.myList.filter(movie => movie.userMovieId !== action.payload)
         state.loading = false
