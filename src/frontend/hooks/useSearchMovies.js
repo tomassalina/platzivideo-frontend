@@ -13,9 +13,9 @@ const useSearchMovies = () => {
 
     try {
       const { data: filteredMovies } = await toast.promise(getFilteredMovies, {
-        loading: 'Cargando...',
-        success: 'Busqueda exitosa',
-        error: 'Algo salió mal'
+        loading: 'Loading...',
+        success: 'Successful search',
+        error: 'Something went wrong'
       })
       setFilteredMovies(filteredMovies.movies)
     } catch (err) {

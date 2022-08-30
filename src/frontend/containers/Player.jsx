@@ -33,7 +33,7 @@ const Player = () => {
             </video>
             <div className='Player-back'>
               <Link className='Player-link' to='/'>
-                Regresar
+                Go back
               </Link>
             </div>
           </div>

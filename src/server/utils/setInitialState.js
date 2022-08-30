@@ -29,10 +29,10 @@ const setInitialState = async ({ token, email, name, id }) => {
         loading: false,
         myList: [],
         categories: {
-          trends: { title: 'Tendencias', list: [] },
-          originals: { title: 'Originales de PlatziVideo', list: [] },
-          action: { title: 'Acción', list: [] },
-          family: { title: 'Para ver en familia', list: [] },
+          trends: { title: 'Trends', list: [] },
+          originals: { title: 'PlatziVideo originals', list: [] },
+          action: { title: 'Action', list: [] },
+          family: { title: 'To see with family', list: [] },
           terror: { title: 'Terror', list: [] },
           kids: { title: 'Kids', list: [] }
         }

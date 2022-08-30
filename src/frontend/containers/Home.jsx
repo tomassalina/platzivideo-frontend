@@ -22,7 +22,7 @@ const Home = () => {
       <Search />
 
       {myList.length > 0 && (
-        <Categories title='Mi lista'>
+        <Categories title='My list'>
           <Carousel>
             {myList.map((item) => (
               <CarouselItem key={item.userMovieId} {...item} isList />

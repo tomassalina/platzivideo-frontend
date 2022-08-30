@@ -40,7 +40,7 @@ const Header = ({ isHome }) => {
                 : (
                   <img src={userIcon} alt='Gravatar User' />
                   )}
-              <p>Perfil</p>
+              <p>Profile</p>
             </div>
             <ul>
               {hasUser
@@ -50,7 +50,7 @@ const Header = ({ isHome }) => {
                       <Link to='/'>{user.name}</Link>
                     </li>
                     <li>
-                      <button onClick={handleLogout}>Cerrar Sesión</button>
+                      <button onClick={handleLogout}>Log out</button>
                     </li>
                   </>
                   )

@@ -32,7 +32,7 @@ export const setFavorite = createAsyncThunk(
     try {
       const { data: userMovieId } = await axios.post('/user-movies', { movieId: movie._id })
 
-      toast.success('Agregada correctamente a tu lista')
+      toast.success('Added to your list successfuly')
 
       return { ...movie, userMovieId: userMovieId.data }
     } catch (err) {
@@ -61,10 +61,10 @@ const moviesSlice = createSlice({
     clearMovies: (state, action) => {
       state.myList = []
       state.categories = {
-        trends: { title: 'Tendencias', list: [] },
-        originals: { title: 'Originales de PlatziVideo', list: [] },
-        action: { title: 'Acción', list: [] },
-        family: { title: 'Para ver en familia', list: [] },
+        trends: { title: 'Trends', list: [] },
+        originals: { title: 'PlatziVideo originals', list: [] },
+        action: { title: 'Action', list: [] },
+        family: { title: 'To see with family', list: [] },
         terror: { title: 'Terror', list: [] },
         kids: { title: 'Kids', list: [] }
       }

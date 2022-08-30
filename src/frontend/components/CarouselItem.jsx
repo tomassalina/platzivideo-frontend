@@ -17,7 +17,7 @@ const CarouselItem = props => {
 
   const handleSetFavorite = async () => {
     const exits = myList.find(movie => movie._id === _id)
-    if (exits) return toast.error('Ya se encuentra en la lista')
+    if (exits) return toast.error("It's already in the list")
 
     dispatch(setFavorite({
       _id,

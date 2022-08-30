@@ -25,19 +25,19 @@ const getMovies = async (token) => {
 
     const categories = {
       trends: {
-        title: 'Tendencias',
+        title: 'Trends',
         list: movieList.filter(movie => movie.tags.includes('trends'))
       },
       originals: {
-        title: 'Originales de PlatziVideo',
+        title: 'PlatziVideo originals',
         list: movieList.filter(movie => movie.tags.includes('originals'))
       },
       action: {
-        title: 'Acción',
+        title: 'Action',
         list: movieList.filter(movie => movie.tags.includes('action'))
       },
       family: {
-        title: 'Para ver en familia',
+        title: 'To see with family',
         list: movieList.filter(movie => movie.tags.includes('family'))
       },
       terror: {

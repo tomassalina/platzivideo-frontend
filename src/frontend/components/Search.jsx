@@ -19,15 +19,15 @@ const Search = () => {
   return (
     <>
       <section className='main'>
-        <h2 className='main__title'>¿Qué quieres ver hoy?</h2>
+        <h2 className='main__title'>¿What do you want to see today?</h2>
         <form className='main__form' onSubmit={handleSubmit}>
           <input
             type='text'
             className='input'
             ref={formInput}
-            placeholder='Filtra por peliculas...'
+            placeholder='Filter by movies...'
           />
-          <button className='main__search-button' type='submit'>Buscar</button>
+          <button className='main__search-button' type='submit'>Search</button>
         </form>
       </section>
       {
